@@ -7,10 +7,10 @@ class MyRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateRoute: (RouteSettings route){
+      onGenerateRoute: (RouteSettings route) {
         return MaterialPageRoute(
-          settings: RouteSettings(name: MainPage.path),
-          builder: (_) => MainPage()
+            settings: RouteSettings(name: MainPage.path),
+            builder: (_) => MainPage()
         );
       },
     );
