@@ -66,3 +66,40 @@ class TitleList extends StatelessWidget {
     );
   }
 }
+
+
+
+// Item에서도 최대한 사이즈 정하지 않는게 좋다. 사용 됬을 때 사이즈 정하도록
+class TitleListItem extends StatelessWidget {
+  final String img;
+  final String title;
+  final String subTitle;
+  const TitleListItem({Key? key, required this.img, required this.title, required this.subTitle}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Expanded(child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(this.img)
+              )
+            ),
+          )),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(this.title),
+                Text(this.subTitle),
+              ],
+            )
+          )
+        ],
+      )
+    );
+  }
+}

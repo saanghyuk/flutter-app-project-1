@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
+import 'package:flutterstudy2/pages/detailPage.dart';
 import '../components/banner.dart' as BN;
 
 class MainPage extends StatefulWidget {
@@ -31,8 +33,47 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 뒤로 갈 수 있는지 여부
+    print(Navigator.of(context).canPop());
+    final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
-      drawer: Drawer(),
+      // drawerEnableOpenDragGesture: false,
+      // drawerScrimColor: Colors.blue,
+      drawer: _canPop ? null : Drawer(
+        // backgroundColor: Colors.red,
+        elevation: 10.0,
+        child: Column(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 2.0, color: Colors.grey.shade200))
+              ),
+              child: Container(
+                alignment: Alignment.center,
+                child: Text("Welcome")
+              )
+            ),
+            ...<String>["Home", "Menu1", "Menu2"].map<Widget>(
+                (String menuTitle) => ListTile(
+                  title: Text(menuTitle),
+                  trailing: Icon(Icons.arrow_right),
+                  onTap: () async {
+                    // 닫기
+                    Navigator.of(context).pop();
+
+                    // 다른 코드들 실행되게 하려고 붙여주는 것.
+                    // 현재 context에서는 기다리되 다른 context는 실행되도록
+                    // await Navigator.of(context).push(
+                    //     MaterialPageRoute(builder: (BuildContext context) => MainPage())
+                    // );
+                  },
+                )
+            ).toList()
+          ],
+        )
+        // child: ,
+
+      ),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(9, 67, 214, 1),
         elevation: 1.0,
@@ -150,41 +191,97 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                     ],
                   )
               ),
+              // Container(
+              //   height: 240.0,
+              //   width: _size.width,
+              //   child: TitleList(
+              //     title: "SingleChildScrollView",
+              //     children: [
+              //       Container(
+              //         width: 200.0,
+              //         color: Colors.red
+              //       ),
+              //       Container(
+              //         width: 200.0,
+              //         margin: EdgeInsets.symmetric(horizontal: 20.0),
+              //         child: TitleListItem(
+              //           img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
+              //           title: 'test',
+              //           subTitle: '1000원',)
+              //       )
+              //     ]
+              //   )
+              // ), // Container
               Container(
-                height: 240.0,
-                width: _size.width,
-                child: TitleList(
-                  title: "SingleChildScrollView",
-                  children: [
-                    Container(
-                      width: 200.0,
-                      color: Colors.red
-                    ),
-                    Container(
-                        width: 200.0,
-                        color: Colors.green
-                    ),
-                    Container(
-                        width: 200.0,
-                        color: Colors.blue
-                    )
-                  ]
-                )
+                  height: 300.0,
+                  width: _size.width,
+                  child: TitleList.builder(
+                      title: "Test2",
+                      itemCount: 3,
+                      itemBuilder: (BuildContext context, int index){
+                        return GestureDetector(
+                          onTap: () async {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) => DetailPage())
+                            );
+                          },
+                          child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10.0),
+                              width: 240.0,
+                              child: TitleListItem(
+                                img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
+                                title: 'test $index',
+                                subTitle: '1000원')
+                          ),
+                        );
+                      })
               ),
               Container(
                   height: 300.0,
                   width: _size.width,
                   child: TitleList.builder(
-                      title: "ListView.builder",
-                      itemCount: 100,
+                      title: "Test2",
+                      itemCount: 3,
                       itemBuilder: (BuildContext context, int index){
                         return Container(
-                          width: _size.width/2,
-                          color: Colors.grey.shade300,
-                          margin: EdgeInsets.all(10.0),
-                          child: Text(index.toString())
+                            margin: EdgeInsets.symmetric(horizontal: 10.0),
+                            width: 240.0,
+                            child: TitleListItem(
+                                img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
+                                title: 'test $index',
+                                subTitle: '1000원')
                         );
                       })
+              ),
+              Container(
+                child: TitleGrid(
+                  // @TODO: 데이터 작업 후 반복 예정
+                    title: 'GridTest',
+                    rowCount: 2,
+                    children: [
+                      [
+                        Container(
+                            // color: Colors.red,
+                            width : _size.width * 0.50 - 40.0,
+                            height: 240.0,
+                            margin: EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage("https://cdn.pixabay.com/photo/2023/03/03/13/28/bird-7827680_640.jpg"),
+                              )
+                            )
+                        ),
+                        // GridTile(
+                        //     child: Container()
+                        // )
+                      ],
+                      [
+                        Container(color: Colors.yellow, width : 100.0, height: 100.0),
+                        Container(color: Colors.green, width : 100.0, height: 100.0)
+                      ]
+                    ],
+                )
               )
             ],
           ),
