@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 
 class DetailPage extends StatefulWidget {
-
   const DetailPage({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +13,6 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    this._controller.dispose();
     super.dispose();
   }
 
@@ -29,12 +27,12 @@ class _DetailPageState extends State<DetailPage> {
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text("Title"),
+        title:  Text("Title"),
         foregroundColor: Colors.black87,
       ),
       body: SingleChildScrollView(
-        controller : this._controller,
-          child: Container()
+        controller: this._controller,
+        child: Container(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.arrow_upward),
