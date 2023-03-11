@@ -140,12 +140,12 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
           child: Column(
             children: [
               Container(
-                  alignment : Alignment.centerLeft,
-                  padding: EdgeInsets.only(top:30.0, left:30.0),
-                  child:Text("SDK TEST", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
+                  alignment : Alignment.center,
+                  padding: EdgeInsets.only(top:30.0),
+                  child:Text("Airbridge SDK TEST", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
               ),
               Container(
-                  height: 300.0,
+                  height: 400.0,
                   child: BN.Banner(
                     onTap: (int index){
                       print(index);
@@ -155,6 +155,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                     },
                     data: [ {
                       "img": "https://cdn.pixabay.com/photo/2023/02/17/19/59/dog-7796822_1280.jpg",
+                      // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
                       "title":"test1",
                       "des": "test1 description",
                     },
