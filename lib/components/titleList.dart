@@ -21,86 +21,85 @@ class TitleList extends StatelessWidget {
         this._children = null,
         super(key:key);
 
-
   @override
   Widget build(BuildContext context) {
     Widget _titleText = Text(
-        "AB180", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0));
-
+      "AB180", style : TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+    );
     if(!this._check){
       return Container(
         child: Column(
+
           children: [
             Container(
-              color: Colors.yellow,
-              alignment: Alignment.center,
-              child: _titleText,
-              margin: EdgeInsets.only(left:30.0, top: 10.0, bottom:10.0, right: 30.0),
+                color: Colors.yellow,
+                alignment: Alignment.center,
+                child: _titleText,
+                margin: EdgeInsets.only(left:30.0, top:10.0, bottom:10.0, right: 30.0)
             ),
-            Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: this._children!,
-                  )
+            Expanded(child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: this._children!,
                 )
-            )
+            ))
           ],
         ),
       );
     }
     return Container(
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(20.0),
-            child: _titleText
-          ),
-          Expanded(
-              child: ListView.builder(
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.all(20.0),
+                child: _titleText
+            ),
+            Expanded(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount : this._itemCount,
+                  itemCount: this._itemCount,
                   itemBuilder: this._itemBuilder!,
-              )
-          )
-        ],
-      )
+                )
+            )
+          ],
+        )
     );
   }
 }
+
+
+
+// Item에서도 최대한 사이즈 정하지 않는게 좋다. 사용 됬을 때 사이즈 정하도록
 class TitleListItem extends StatelessWidget {
   final String img;
   final String title;
   final String subTitle;
-
   const TitleListItem({Key? key, required this.img, required this.title, required this.subTitle}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Expanded(child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(this.img)
-              )
-            ),
-          )),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(this.title),
-                Text(this.subTitle)
-              ],
+        child: Column(
+          children: [
+            Expanded(child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.img)
+                  )
+              ),
+            )),
+            Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(this.title),
+                    Text(this.subTitle),
+                  ],
+                )
             )
-          )
-        ],
-      )
+          ],
+        )
     );
   }
 }
-

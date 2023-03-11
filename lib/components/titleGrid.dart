@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 
 
 class TitleGrid extends StatelessWidget {
@@ -14,8 +14,8 @@ class TitleGrid extends StatelessWidget {
 
 
   const TitleGrid({Key? key,
-          required List<List<Widget>> children,
-          required int rowCount, required this.title
+    required List<List<Widget>> children,
+    required int rowCount, required this.title
   })
       : _isBuilder = false,
         _sliver= null,
@@ -50,17 +50,17 @@ class TitleGrid extends StatelessWidget {
             Text(this.title),
             ...this._children!.map<Widget>(
                     (List<Widget> child) {
-                      if(child.length != this._rowCount!){
-                        // @TODO : 나중에 처리 필요.
-                        // child의 Length가 > row count
-                        // child의 Length가 < row count
-                      }
-                      return Row(
-                          children: child.map<Widget>(
-                                  (Widget w) => w
-                          ).toList()
-                );
-              }
+                  if(child.length != this._rowCount!){
+                    // @TODO : 나중에 처리 필요.
+                    // child의 Length가 > row count
+                    // child의 Length가 < row count
+                  }
+                  return Row(
+                      children: child.map<Widget>(
+                              (Widget w) => w
+                      ).toList()
+                  );
+                }
             ).toList()
           ],
         )
@@ -70,9 +70,9 @@ class TitleGrid extends StatelessWidget {
         Text(this.title),
         Expanded(
           child: GridView.builder(
-              itemCount: this._itemCount,
-              gridDelegate: this._sliver!,
-              itemBuilder: this._itemBuilder!,
+            itemCount: this._itemCount,
+            gridDelegate: this._sliver!,
+            itemBuilder: this._itemBuilder!,
           ),
         ),
       ],
