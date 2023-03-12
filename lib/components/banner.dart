@@ -20,12 +20,17 @@ class Banner extends StatefulWidget {
 
 class _BannerState extends State<Banner> {
   final PageController _controller = PageController();
+  final _scrollController = ScrollController();
   int _btnState = 0;
+
+  final List<Size> _sizes = [];
+
 
   @override
   void dispose() {
     // TODO: implement dispose
     this._controller.dispose();
+    this._scrollController.dispose();
     super.dispose();
   }
 
@@ -41,19 +46,24 @@ class _BannerState extends State<Banner> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SingleChildScrollView(
+                // physics: NeverScrollableScrollPhysics(),
+                controller: this._scrollController,
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: this.widget.data.map<Widget>((e){
                     final _eIndex = this.widget.data.indexOf(e);
-                    return TextButton(
+                    return BnTextButton(
                       onPressed: () async {
                         this._controller.jumpToPage(_eIndex);
                         await this.widget.onTap(_eIndex);
+
+                        this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
                       },
-                      child: Text(e['title'].toString(), style: this._btnState == _eIndex
-                          ?
-                      TextStyle(color: Colors.red, fontWeight : FontWeight.bold)
-                          : TextStyle(color: Colors.grey)),
+                      title: e['title'],
+                      isAction: this._btnState == _eIndex,
+                      onComplete: (Size size){
+                          this._sizes.add(size);
+                      }
                     );
                   }).toList(),
                 )
@@ -64,7 +74,24 @@ class _BannerState extends State<Banner> {
                       setState(() {
                         this._btnState = index;
                       });
+                      // 누적 시켜서 넣어야 한다.
+                      print(_scrollController.position);
+                      // if(this._scrollController.position.pixels >= this._scrollController.position.maxScrollExtent){
+                      //   return;
+                      // }
                       await this.widget.onChanged(index);
+
+                      double result = 0;
+                      for(int i = 0; i<index; i++){
+                        result += this._sizes[i].width;
+                      }
+                      // print(result);
+                      // print(this._scrollController.position.maxScrollExtent);
+                      if(result >= this._scrollController.position.maxScrollExtent){
+                          return;
+                      }
+                      this._scrollController.jumpTo(index*this._sizes[index].width);
+
                     },
                     controller: this._controller,
                     itemCount: this.widget.data.length,
@@ -73,10 +100,11 @@ class _BannerState extends State<Banner> {
                           children: [
                             Expanded(child: Container(
                               decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(this.widget.data[index]['img'].toString()),
-                                  )
+                                  color: Colors.red,
+                                  // image: DecorationImage(
+                                  //   fit: BoxFit.cover,
+                                  //   image: NetworkImage(this.widget.data[index]['img'].toString()),
+                                  // )
                               ),
                             )
                             ),
@@ -92,6 +120,41 @@ class _BannerState extends State<Banner> {
             )
           ],
         )
+    );
+  }
+}
+
+class BnTextButton extends StatefulWidget {
+  final FutureOr<void> Function() onPressed;
+  final String title;
+  final bool isAction;
+  final void Function(Size) onComplete;
+  const BnTextButton({Key? key, required this.onPressed, required this.title, required this.isAction, required this.onComplete}) : super(key: key);
+
+
+  @override
+  State<BnTextButton> createState() => _BnTextButtonState();
+}
+
+class _BnTextButtonState extends State<BnTextButton> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp){
+      this.widget.onComplete(this.context.size!);
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: this.widget.onPressed,
+      child: Text(this.widget.title, style: this.widget.isAction
+          ?
+      TextStyle(color: Colors.red, fontWeight : FontWeight.bold)
+          : TextStyle(color: Colors.grey)),
     );
   }
 }

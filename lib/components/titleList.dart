@@ -83,10 +83,11 @@ class TitleListItem extends StatelessWidget {
           children: [
             Expanded(child: Container(
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(this.img)
-                  )
+                color: Colors.yellow,
+                  // image: DecorationImage(
+                  //     fit: BoxFit.cover,
+                  //     image: NetworkImage(this.img)
+                  // )
               ),
             )),
             Container(
