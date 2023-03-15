@@ -10,7 +10,7 @@ class MainPage extends StatefulWidget {
   static const String path = "/";
 
   const MainPage({Key? key}) : super(key: key);
-  
+
   @override
   State<MainPage> createState() => _MainPageState();
 
