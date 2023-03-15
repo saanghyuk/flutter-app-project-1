@@ -1,3 +1,5 @@
+
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import '../components/banner.dart' as BN;
 
 class MainPage extends StatefulWidget {
   static const String path = "/";
+
 
   const MainPage({Key? key}) : super(key: key);
 
@@ -34,7 +37,6 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     // 뒤로 갈 수 있는지 여부
     print(Navigator.of(context).canPop());
-
     final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
       // drawerEnableOpenDragGesture: false,
@@ -59,7 +61,6 @@ class _MainPageState extends State<MainPage> {
                     trailing: Icon(Icons.arrow_right),
                     onTap: () async {
                       // 닫기
-                      // Drawer 닫고
                       Navigator.of(context).pop();
 
                       // 다른 코드들 실행되게 하려고 붙여주는 것.
@@ -141,12 +142,12 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
           child: Column(
             children: [
               Container(
-                  alignment : Alignment.center,
-                  padding: EdgeInsets.only(top:30.0),
-                  child:Text("Airbridge SDK TEST", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
+                  alignment : Alignment.centerLeft,
+                  padding: EdgeInsets.only(top:30.0, left:30.0),
+                  child:Text("SDK TEST", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
               ),
               Container(
-                  height: 400.0,
+                  height: 300.0,
                   child: BN.Banner(
                     onTap: (int index){
                       print(index);
@@ -155,50 +156,39 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                       print(index);
                     },
                     data: [ {
-                      "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                      // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
+                      "img": "https://cdn.pixabay.com/photo/2023/02/17/19/59/dog-7796822_1280.jpg",
                       "title":"test1",
                       "des": "test1 description",
                     },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/01/23/09/26/cat-7738210_640.jpg",
                         "title":"test2",
                         "des": "test2 description",
                       },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/02/24/10/14/flowers-7810659_1280.jpg",
                         "title":"test3",
                         "des": "test3 description",
                       },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/02/25/12/30/man-7813108_1280.jpg",
                         "title":"test4",
                         "des": "test4 description",
                       },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_1280.jpg",
                         "title":"test5",
                         "des": "test5 description",
                       },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/02/14/18/55/flowers-7790227_640.jpg",
                         "title":"test6",
                         "des": "test6 description",
                       },
                       {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                        "img": "https://cdn.pixabay.com/photo/2023/01/21/22/33/hamburg-7735229_640.jpg",
                         "title":"test7",
                         "des": "test7 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test8",
-                        "des": "test8 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test9",
-                        "des": "test9 description",
                       }
                     ],
                   )
@@ -259,7 +249,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                             margin: EdgeInsets.symmetric(horizontal: 10.0),
                             width: 240.0,
                             child: TitleListItem(
-                                img: 'https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg',
+                                img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
                                 title: 'test $index',
                                 subTitle: '1000원')
                         );
@@ -280,7 +270,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage("https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg"),
+                                  image: NetworkImage("https://cdn.pixabay.com/photo/2023/03/03/13/28/bird-7827680_640.jpg"),
                                 )
                             )
                         ),

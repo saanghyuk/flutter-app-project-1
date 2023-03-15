@@ -46,24 +46,24 @@ class _BannerState extends State<Banner> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SingleChildScrollView(
-                // physics: NeverScrollableScrollPhysics(),
+              // physics: NeverScrollableScrollPhysics(),
                 controller: this._scrollController,
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: this.widget.data.map<Widget>((e){
                     final _eIndex = this.widget.data.indexOf(e);
                     return BnTextButton(
-                      onPressed: () async {
-                        this._controller.jumpToPage(_eIndex);
-                        await this.widget.onTap(_eIndex);
+                        onPressed: () async {
+                          this._controller.jumpToPage(_eIndex);
+                          await this.widget.onTap(_eIndex);
 
-                        this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
-                      },
-                      title: e['title'],
-                      isAction: this._btnState == _eIndex,
-                      onComplete: (Size size){
+                          this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
+                        },
+                        title: e['title'],
+                        isAction: this._btnState == _eIndex,
+                        onComplete: (Size size){
                           this._sizes.add(size);
-                      }
+                        }
                     );
                   }).toList(),
                 )
@@ -88,7 +88,7 @@ class _BannerState extends State<Banner> {
                       // print(result);
                       // print(this._scrollController.position.maxScrollExtent);
                       if(result >= this._scrollController.position.maxScrollExtent){
-                          return;
+                        return;
                       }
                       this._scrollController.jumpTo(index*this._sizes[index].width);
 
@@ -100,11 +100,11 @@ class _BannerState extends State<Banner> {
                           children: [
                             Expanded(child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  // image: DecorationImage(
-                                  //   fit: BoxFit.cover,
-                                  //   image: NetworkImage(this.widget.data[index]['img'].toString()),
-                                  // )
+                                color: Colors.red,
+                                // image: DecorationImage(
+                                //   fit: BoxFit.cover,
+                                //   image: NetworkImage(this.widget.data[index]['img'].toString()),
+                                // )
                               ),
                             )
                             ),
