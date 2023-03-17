@@ -157,7 +157,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                     },
                     data: [ {
                       "img": "https://cdn.pixabay.com/photo/2023/02/17/19/59/dog-7796822_1280.jpg",
-                      "title":"test1",
+                      "title":"test5",
                       "des": "test1 description",
                     },
                       {
@@ -249,7 +249,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                             margin: EdgeInsets.symmetric(horizontal: 10.0),
                             width: 240.0,
                             child: TitleListItem(
-                                img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
+                                img: 'https://ssl.pstatic.net/melona/libs/1420/1420577/94fd180fc2bb62e3b252_20230306145058409.jpg',
                                 title: 'test $index',
                                 subTitle: '1000원')
                         );
