@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatefulWidget {
@@ -38,9 +40,9 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        // 특별한 거 아니면 위에꺼 끝나고 아래
-        this._controller.addListener(_handler);
-        setState(() => this._isEvents = true);
+      // 특별한 거 아니면 위에꺼 끝나고 아래
+      this._controller.addListener(_handler);
+      setState(() => this._isEvents = true);
     });
 
     // 리스너 삭제
@@ -74,12 +76,12 @@ class _DetailPageState extends State<DetailPage> {
         body: Stack(
           children: [
             SingleChildScrollView(
-              controller: this._controller,
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                color: Colors.red,
-                height: 1000.0,
-              )
+                controller: this._controller,
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  color: Colors.red,
+                  height: 1000.0,
+                )
             ),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -97,16 +99,16 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
             ),
-            // Layer가 앞에 Positioned 위, 즉 맨 위
-            Positioned(
-                top:0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-              child: Center(
-                child: CircularProgressIndicator()
-              )
-            )]
+              // Layer가 앞에 Positioned 위, 즉 맨 위
+              Positioned(
+                  top:0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                      child: CircularProgressIndicator()
+                  )
+              )]
           ],
         ),
         floatingActionButton: !this._isShow ? null : FloatingActionButton(
