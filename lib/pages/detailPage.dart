@@ -1,6 +1,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutterstudy2/components/detailImage.dart';
+
+import '../components/TextBanner.dart';
+import '../components/titleGrid.dart';
+import '../components/titleText.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -59,9 +64,11 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size _viewSize = MediaQuery.of(context).size;
     return IgnorePointer(
       ignoring: !this._isEvents,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
@@ -79,8 +86,43 @@ class _DetailPageState extends State<DetailPage> {
                 controller: this._controller,
                 physics: BouncingScrollPhysics(),
                 child: Container(
-                  color: Colors.red,
-                  height: 1000.0,
+                    width: _viewSize.width,
+                    child: Column(
+                      children: [
+                        TextBanner(
+                          child: Text("Text Banner"),
+                          // padding, margin, decoration
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: TitleText.review(
+                            alignment: CrossAxisAlignment.center,
+                            txt : "AB180",
+                            star: 4
+                          ),
+                        ),
+                        DetailImage(src: "https://cdn.pixabay.com/photo/2023/01/08/14/07/street-7705265_1280.jpg"),
+                        Container(
+                          height: 200.0,
+                          width: _viewSize.width,
+                          child: TitleGrid.builder(
+                            title: "",
+                            sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0
+                            ),
+                            itemBuilder: (BuildContext context, int index) => GridTile(child: Container(color: Colors.red),
+                              header: Center(child: Text("Hi")),
+                              footer: Center(
+                                  child: Text("i : $index"))
+                            ),
+                            itemCount: 10,
+                            axis : Axis.horizontal,
+                          ),
+                        )
+                      ],
+                  )
                 )
             ),
             Container(

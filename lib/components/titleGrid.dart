@@ -11,6 +11,7 @@ class TitleGrid extends StatelessWidget {
   final List<List<Widget>>? _children;
   final int? _rowCount;
   final String title;
+  final Axis? _axis;
 
 
   const TitleGrid({Key? key,
@@ -23,15 +24,20 @@ class TitleGrid extends StatelessWidget {
         _itemCount = null,
         _children = children,
         _rowCount = rowCount,
+        _axis = null,
         super(key: key);
-  const TitleGrid.builder({Key? key, required SliverGridDelegate sliverGridDelegate,
-    required Widget Function(BuildContext, int) itemBuilder, required int itemCount, required this.title})
+  const TitleGrid.builder({
+    Key? key, required SliverGridDelegate sliverGridDelegate,
+    required Widget Function(BuildContext, int) itemBuilder, required int itemCount, required this.title,
+    Axis axis = Axis.vertical,
+  })
       : _isBuilder = true,
         _children = null,
         _sliver = sliverGridDelegate,
         _itemBuilder = itemBuilder,
         _itemCount = itemCount,
         _rowCount =null,
+        _axis = axis,
         super(key: key);
 
   @override
@@ -70,6 +76,7 @@ class TitleGrid extends StatelessWidget {
         Text(this.title),
         Expanded(
           child: GridView.builder(
+            scrollDirection: _axis!,
             itemCount: this._itemCount,
             gridDelegate: this._sliver!,
             itemBuilder: this._itemBuilder!,
