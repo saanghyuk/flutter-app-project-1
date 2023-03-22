@@ -1,5 +1,8 @@
 
 
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutterstudy2/components/detailImage.dart';
 
