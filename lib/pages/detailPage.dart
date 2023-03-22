@@ -67,6 +67,28 @@ class _DetailPageState extends State<DetailPage> {
     return IgnorePointer(
       ignoring: !this._isEvents,
       child: Scaffold(
+        bottomNavigationBar: Row(
+          children: [
+            Expanded(
+              child: MaterialButton(
+                height: kBottomNavigationBarHeight,
+                  padding: EdgeInsets.zero,
+                  color: Colors.white,
+                  child: Text("Cancel"),
+                  onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+            Expanded(child:
+                MaterialButton(
+                    height: kBottomNavigationBarHeight,
+                    padding: EdgeInsets.zero,
+                    textColor: Colors.white,
+                    color: Colors.red,
+                    child: Text("OK"),
+                onPressed: (){}
+            )),
+          ],
+        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
@@ -85,6 +107,7 @@ class _DetailPageState extends State<DetailPage> {
                 controller: this._controller,
                 physics: BouncingScrollPhysics(),
                 child: Container(
+                  padding: EdgeInsets.only(bottom: 60.0),
                   width: _viewSize.width,
                   child: Column(
                     children: [

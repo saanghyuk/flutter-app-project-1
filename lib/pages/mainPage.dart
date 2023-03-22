@@ -5,6 +5,7 @@ import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
 import '../components/banner.dart' as BN;
+import '../views/searchView.dart';
 
 class MainPage extends StatefulWidget {
   static const String path = "/";
@@ -92,7 +93,7 @@ class _MainPageState extends State<MainPage> {
         physics: NeverScrollableScrollPhysics(),
         children: [
           HomeView(),
-          Container(color: Colors.blue),
+          SearchView(),
           Container(color: Colors.yellow),
           Container(color: Colors.pink),
         ],
