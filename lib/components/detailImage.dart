@@ -8,14 +8,8 @@ class DetailImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _viewSize = MediaQuery.of(context).size;
     return Container(
-      width: _viewSize.width,
-      // height: 300.0,
-      //   decoration: BoxDecoration(
-      //       image: DecorationImage(
-      //         fit: BoxFit.fitWidth,
-      //         image: NetworkImage(this.src),
-      //       )
-      child: Image.network(this.src)
+      width: _viewSize.width, 
+      child: Image.network(this.src),
     );
   }
 }

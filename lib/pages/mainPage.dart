@@ -284,6 +284,18 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                                 )
                             )
                         ),
+                        Container(
+                          // color: Colors.red,
+                            width : _size.width * 0.50 - 40.0,
+                            height: 240.0,
+                            margin: EdgeInsets.all(20.0),
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage("https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg"),
+                                )
+                            )
+                        ),
                         // GridTile(
                         //     child: Container()
                         // )

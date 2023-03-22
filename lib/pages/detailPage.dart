@@ -1,13 +1,9 @@
 
-
-
-
-
 import 'package:flutter/material.dart';
+import 'package:flutterstudy2/components/TextBanner.dart';
 import 'package:flutterstudy2/components/detailImage.dart';
+import 'package:flutterstudy2/components/titleGrid.dart';
 
-import '../components/TextBanner.dart';
-import '../components/titleGrid.dart';
 import '../components/titleText.dart';
 
 class DetailPage extends StatefulWidget {
@@ -89,43 +85,41 @@ class _DetailPageState extends State<DetailPage> {
                 controller: this._controller,
                 physics: BouncingScrollPhysics(),
                 child: Container(
-                    width: _viewSize.width,
-                    child: Column(
-                      children: [
-                        TextBanner(
-                          child: Text("Text Banner"),
-                          // padding, margin, decoration
+                  width: _viewSize.width,
+                  child: Column(
+                    children: [
+                      TextBanner(
+                          child: Text("Text Bannder")
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: TitleText.review(
+                          alignment: CrossAxisAlignment.center,
+                          txt: "AB180",
+                          star: 4,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: TitleText.review(
-                            alignment: CrossAxisAlignment.center,
-                            txt : "AB180",
-                            star: 4
-                          ),
-                        ),
-                        DetailImage(src: "https://cdn.pixabay.com/photo/2023/01/08/14/07/street-7705265_1280.jpg"),
-                        Container(
-                          height: 200.0,
-                          width: _viewSize.width,
-                          child: TitleGrid.builder(
-                            title: "",
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      DetailImage(src: "https://thumbnail8.coupangcdn.com/thumbnails/remote/q89/image/retail/images/2192795093435290-b1334436-d7c8-4d5d-8002-35b80ec5cda5.jpg"),
+                      Container(
+                        width: _viewSize.width,
+                        height: 200.0,
+                        child: TitleGrid.builder(
                             sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 1,
                               mainAxisSpacing: 10.0,
                               crossAxisSpacing: 10.0
                             ),
-                            itemBuilder: (BuildContext context, int index) => GridTile(child: Container(color: Colors.red),
-                              header: Center(child: Text("Hi")),
-                              footer: Center(
-                                  child: Text("i : $index"))
-                            ),
+                            itemBuilder: (BuildContext, int) => GridTile(child: Container(color: Colors.red)),
                             itemCount: 10,
-                            axis : Axis.horizontal,
-                          ),
-                        )
-                      ],
-                  )
+                            title: "Helo World",
+                            axis: Axis.horizontal,
+                        ),
+                      )
+                    ],
+                  ),
                 )
             ),
             Container(

@@ -35,7 +35,7 @@ class TitleList extends StatelessWidget {
                 color: Colors.yellow,
                 alignment: Alignment.center,
                 child: _titleText,
-                margin: EdgeInsets.only(left:30.0, top:10.0, bottom:10.0, right: 30.0)
+                margin: EdgeInsets.only(left:10.0, top:10.0, bottom:10.0, right: 30.0)
             ),
             Expanded(child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
