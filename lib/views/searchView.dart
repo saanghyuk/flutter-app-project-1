@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
@@ -12,15 +11,6 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMixin{
-  final TextEditingController _controller = TextEditingController()
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final _viewSize = MediaQuery.of(context).size;
@@ -30,33 +20,35 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
         child: Column(
           children: [
             Platform.isIOS ?
-            CupertinoTextField(
-              clearButtonMode: OverlayVisibilityMode.editing,
-            )
-                :
+                CupertinoTextField(
+                    clearButtonMode: OverlayVisibilityMode.editing,
+                )
+          :
             Container(
               margin: EdgeInsets.all(20.0),
               child: Stack(
                 children: [
                   TextField(
-                    controller: this._controller,
                     decoration: InputDecoration(
-                      filled: true,
+                      filled : true,
                       fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(), // OutlineInputBorder
+                      border: OutlineInputBorder(),
                       hintText: "검색어를 입력해 주세요",
                       counterText: ""
                     ),
-                    maxLength: 10,
+                    maxLength: 15,
+                    style: TextStyle(fontSize: 15.0)
+                    ,
                   ),
                   Positioned(
-                    right: 0,
-                    top: 0,
-                    bottom:0,
-                    child: IconButton(icon: Icon(Icons.close), onPressed: (){},)
+                      top: 0,
+                      bottom: 0,
+                      right: 0,
+                      child: IconButton(icon: Icon(Icons.close), onPressed: (){})
                   )
+
                 ],
-              ),
+              )
             )
           ],
         ),

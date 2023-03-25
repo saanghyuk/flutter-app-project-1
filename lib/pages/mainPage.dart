@@ -94,6 +94,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           HomeView(),
           SearchView(),
+          Container(color: Colors.blue),
           Container(color: Colors.yellow),
           Container(color: Colors.pink),
         ],

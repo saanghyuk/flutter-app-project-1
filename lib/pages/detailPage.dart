@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutterstudy2/components/TextBanner.dart';
 import 'package:flutterstudy2/components/detailImage.dart';
@@ -67,28 +66,6 @@ class _DetailPageState extends State<DetailPage> {
     return IgnorePointer(
       ignoring: !this._isEvents,
       child: Scaffold(
-        bottomNavigationBar: Row(
-          children: [
-            Expanded(
-              child: MaterialButton(
-                height: kBottomNavigationBarHeight,
-                  padding: EdgeInsets.zero,
-                  color: Colors.white,
-                  child: Text("Cancel"),
-                  onPressed: () => Navigator.of(context).pop(),
-              ),
-            ),
-            Expanded(child:
-                MaterialButton(
-                    height: kBottomNavigationBarHeight,
-                    padding: EdgeInsets.zero,
-                    textColor: Colors.white,
-                    color: Colors.red,
-                    child: Text("OK"),
-                onPressed: (){}
-            )),
-          ],
-        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
@@ -106,8 +83,8 @@ class _DetailPageState extends State<DetailPage> {
             SingleChildScrollView(
                 controller: this._controller,
                 physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(bottom: 30.0),
                 child: Container(
-                  padding: EdgeInsets.only(bottom: 60.0),
                   width: _viewSize.width,
                   child: Column(
                     children: [
@@ -130,15 +107,15 @@ class _DetailPageState extends State<DetailPage> {
                         width: _viewSize.width,
                         height: 200.0,
                         child: TitleGrid.builder(
-                            sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 1,
                               mainAxisSpacing: 10.0,
                               crossAxisSpacing: 10.0
-                            ),
-                            itemBuilder: (BuildContext, int) => GridTile(child: Container(color: Colors.red)),
-                            itemCount: 10,
-                            title: "Helo World",
-                            axis: Axis.horizontal,
+                          ),
+                          itemBuilder: (BuildContext, int) => GridTile(child: Container(color: Colors.red)),
+                          itemCount: 10,
+                          title: "Helo World",
+                          axis: Axis.horizontal,
                         ),
                       )
                     ],
@@ -170,7 +147,25 @@ class _DetailPageState extends State<DetailPage> {
                   child: Center(
                       child: CircularProgressIndicator()
                   )
-              )]
+              ),
+            ]
+
+          ],
+        ),
+        bottomNavigationBar: Row(
+          children: [
+            Expanded(child: MaterialButton(
+              height: kBottomNavigationBarHeight,
+              color: Colors.white,
+              child: Text("Cancel"),
+              onPressed: (){},
+            )),
+            Expanded(child: MaterialButton(
+              height: kBottomNavigationBarHeight,
+              color: Colors.white,
+              child: Text("OK"),
+              onPressed: (){},
+            ))
           ],
         ),
         floatingActionButton: !this._isShow ? null : FloatingActionButton(
