@@ -5,6 +5,7 @@ import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
 import '../components/banner.dart' as BN;
+import '../views/peedView.dart';
 import '../views/searchView.dart';
 
 class MainPage extends StatefulWidget {
@@ -94,6 +95,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           HomeView(),
           SearchView(),
+          PeedView(),
           Container(color: Colors.blue),
           Container(color: Colors.yellow),
           Container(color: Colors.pink),
