@@ -6,7 +6,9 @@ import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
 import 'package:flutterstudy2/views/peedView.dart';
 import '../components/banner.dart' as BN;
+import '../views/homeView.dart';
 import '../views/searchView.dart';
+
 
 class MainPage extends StatefulWidget {
   static const String path = "/";
@@ -22,12 +24,17 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PageController _controller = new PageController();
-
   int _btmIndex = 0;
+  final ScrollController _homeViewController = ScrollController();
+  final ScrollController _peedViewController = ScrollController();
+
+  final List<String> _menus = ["Home", "SearchView", "PeedView", "Settings"];
 
   @override
   void dispose(){
     this._controller.dispose();
+    this._homeViewController.dispose();
+    this._peedViewController.dispose();
     super.dispose();
   }
 
@@ -55,14 +62,18 @@ class _MainPageState extends State<MainPage> {
                       child: Text("Welcome")
                   )
               ),
-              ...<String>["Home", "Menu1", "Menu2"].map<Widget>(
-                      (String menuTitle) => ListTile(
-                    title: Text(menuTitle),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () async {
-                      // 닫기
-                      // Drawer 닫고
-                      Navigator.of(context).pop();
+              ...this._menus.map<Widget>(
+                      (String menuTitle) {
+                        final int _pIndex = this._menus.indexOf(menuTitle);
+                        return ListTile(
+                              title: Text(menuTitle),
+                              trailing: Icon(Icons.arrow_right),
+                              onTap: () async {
+                                // 닫기
+                                // Drawer 닫고
+                                Navigator.of(context).pop();
+
+                                this._controller.jumpToPage(_pIndex);
 
                       // 다른 코드들 실행되게 하려고 붙여주는 것.
                       // 현재 context에서는 기다리되 다른 context는 실행되도록
@@ -70,7 +81,8 @@ class _MainPageState extends State<MainPage> {
                       //     MaterialPageRoute(builder: (BuildContext context) => MainPage())
                       // );
                     },
-                  )
+                  );
+                      }
               ).toList()
             ],
           )
@@ -93,15 +105,81 @@ class _MainPageState extends State<MainPage> {
         controller: this._controller,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          HomeView(),
+          HomeView(
+
+            controller: this._homeViewController,
+            titleTxt: 'TITLE',
+            bnData:  [ {
+              "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+              // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
+              "title":"test1",
+              "des": "test1 description",
+            },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test2",
+                "des": "test2 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test3",
+                "des": "test3 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test4",
+                "des": "test4 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test5",
+                "des": "test5 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test6",
+                "des": "test6 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test7",
+                "des": "test7 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test8",
+                "des": "test8 description",
+              },
+              {
+                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "title":"test9",
+                "des": "test9 description",
+              }
+            ],
+          ),
           SearchView(),
-          PeedView(),
+          PeedView(controller: this._peedViewController),
           Container(color: Colors.pink),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: this._btmIndex,
           onTap: (int index){
+            if(this._btmIndex == index){
+              if(index == 0){
+                if(this._homeViewController.position.pixels >= 100){
+                  this._homeViewController.jumpTo(0);
+                }
+
+              }
+              if(this._btmIndex ==2){
+                if(this._peedViewController.position.pixels >= 100){
+                  this._peedViewController.jumpTo(0);
+                }
+              }
+              return;
+            }
+
             setState(() {
               this._btmIndex = index;
             });
@@ -120,202 +198,4 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
-}
-
-
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
-
-
-  @override
-  Widget build(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Container(
-          width : _size.width,
-          child: Column(
-            children: [
-              Container(
-                  alignment : Alignment.center,
-                  padding: EdgeInsets.only(top:30.0),
-                  child:Text("Airbridge SDK TEST", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
-              ),
-              Container(
-                  height: 400.0,
-                  child: BN.Banner(
-                    onTap: (int index){
-                      print(index);
-                    },
-                    onChanged: (int index){
-                      print(index);
-                    },
-                    data: [ {
-                      "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                      // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
-                      "title":"test1",
-                      "des": "test1 description",
-                    },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test2",
-                        "des": "test2 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test3",
-                        "des": "test3 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test4",
-                        "des": "test4 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test5",
-                        "des": "test5 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test6",
-                        "des": "test6 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test7",
-                        "des": "test7 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test8",
-                        "des": "test8 description",
-                      },
-                      {
-                        "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
-                        "title":"test9",
-                        "des": "test9 description",
-                      }
-                    ],
-                  )
-              ),
-              // Container(
-              //   height: 240.0,
-              //   width: _size.width,
-              //   child: TitleList(
-              //     title: "SingleChildScrollView",
-              //     children: [
-              //       Container(
-              //         width: 200.0,
-              //         color: Colors.red
-              //       ),
-              //       Container(
-              //         width: 200.0,
-              //         margin: EdgeInsets.symmetric(horizontal: 20.0),
-              //         child: TitleListItem(
-              //           img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
-              //           title: 'test',
-              //           subTitle: '1000원',)
-              //       )
-              //     ]
-              //   )
-              // ), // Container
-              Container(
-                  height: 300.0,
-                  width: _size.width,
-                  child: TitleList.builder(
-                      title: "Test2",
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index){
-                        return GestureDetector(
-                          onTap: () async {
-                            await Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => DetailPage())
-                            );
-                          },
-                          child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10.0),
-                              width: 240.0,
-                              child: TitleListItem(
-                                  img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
-                                  title: 'test $index',
-                                  subTitle: '1000원')
-                          ),
-                        );
-                      })
-              ),
-              Container(
-                  height: 300.0,
-                  width: _size.width,
-                  child: TitleList.builder(
-                      title: "Test2",
-                      itemCount: 3,
-                      itemBuilder: (BuildContext context, int index){
-                        return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10.0),
-                            width: 240.0,
-                            child: TitleListItem(
-                                img: 'https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg',
-                                title: 'test $index',
-                                subTitle: '1000원')
-                        );
-                      })
-              ),
-              Container(
-                  child: TitleGrid(
-                    // @TODO: 데이터 작업 후 반복 예정
-                    title: 'GridTest',
-                    rowCount: 2,
-                    children: [
-                      [
-                        Container(
-                          // color: Colors.red,
-                            width : _size.width * 0.50 - 40.0,
-                            height: 240.0,
-                            margin: EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage("https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg"),
-                                )
-                            )
-                        ),
-                        Container(
-                          // color: Colors.red,
-                            width : _size.width * 0.50 - 40.0,
-                            height: 240.0,
-                            margin: EdgeInsets.all(20.0),
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage("https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg"),
-                                )
-                            )
-                        ),
-                        // GridTile(
-                        //     child: Container()
-                        // )
-                      ],
-                      [
-                        Container(color: Colors.yellow, width : 100.0, height: 100.0),
-                        Container(color: Colors.green, width : 100.0, height: 100.0)
-                      ]
-                    ],
-                  )
-              )
-            ],
-          ),
-        )
-    );
-  }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }

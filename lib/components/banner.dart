@@ -4,6 +4,34 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 
+
+class BannerItem{
+    final String img;
+    final String title;
+    final String des;
+
+    const BannerItem( {
+      required this.img,
+      required this.title,
+      required this.des,
+    });
+
+    // BannerItem.json(Map<String, String> e)
+    //     : img = e['img'].toString(),
+    //       title = e['title'].toString(),
+    //       des =e['des'].toString();
+
+    // 더 편한 방법이 있다.
+    factory BannerItem.json(Map<String, String> e){
+      return BannerItem(
+        img:e['img'].toString(),
+        title:e['title'].toString(),
+        des:e['des'].toString(),
+      );
+    }
+}
+
+
 class Banner extends StatefulWidget {
   // final int count = 8;
 
@@ -12,7 +40,7 @@ class Banner extends StatefulWidget {
 
   final FutureOr<void> Function(int) onTap;
   final FutureOr<void> Function(int) onChanged;
-  final List data;
+  final List<BannerItem> data;
 
   const Banner({Key? key, required this.data, this.height, this.margin, required this.onTap, required this.onChanged}) : super(key: key);
 
@@ -50,14 +78,17 @@ class _BannerState extends State<Banner> {
                 controller: this._scrollController,
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: this.widget.data.map<Widget>((e){
+                  children: this.widget.data.map<Widget>(
+                          (BannerItem e){
                     final _eIndex = this.widget.data.indexOf(e);
                     return BnTextButton(onPressed: () async {
                       this._controller.jumpToPage(_eIndex);
                       await this.widget.onTap(_eIndex);
                       this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
                             },
-                      title: e['title'],
+                       // {"title": "title1 "}// map객체에서 선택
+                       // e.title
+                      title: e.title,
                       isAction: this._btnState == _eIndex,
                       onComplete: (Size size) {
                         this._sizes.add(size);
@@ -98,7 +129,7 @@ class _BannerState extends State<Banner> {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: NetworkImage(this.widget.data[index]['img'].toString()),
+                                    image: NetworkImage(this.widget.data[index].img),
                                   )
                               ),
                             )
@@ -106,7 +137,7 @@ class _BannerState extends State<Banner> {
                             Container(
                                 padding: EdgeInsets.all(10.0),
                                 alignment: Alignment.centerLeft,
-                                child: Text(this.widget.data[index]['des'].toString())
+                                child: Text(this.widget.data[index].des)
                             )
                           ],
                         )
@@ -154,3 +185,5 @@ class _BnTextButtonState extends State<BnTextButton> {
     );;
   }
 }
+
+

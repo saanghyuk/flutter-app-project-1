@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart'; 
 
 class PeedView extends StatefulWidget {
-  const PeedView({Key? key}) : super(key: key);
+  final ScrollController controller;
+  const PeedView({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<PeedView> createState() => _PeedViewState();
@@ -14,6 +15,7 @@ class _PeedViewState extends State<PeedView> with AutomaticKeepAliveClientMixin{
     return Container(
       width: _viewSize.width,
       child: ListView.builder(
+          controller: this.widget.controller,
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) => Card(
               margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
