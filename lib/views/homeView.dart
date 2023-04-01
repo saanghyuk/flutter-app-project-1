@@ -4,9 +4,6 @@ import '../components/titleGrid.dart';
 import '../components/titleList.dart';
 import '../pages/detailPage.dart';
 
-
-
-
 class HomeView extends StatefulWidget {
   final String titleTxt;
   final ScrollController controller;
@@ -33,9 +30,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
               Container(
                   alignment : Alignment.center,
                   padding: EdgeInsets.only(top:30.0),
-                  child:Text(
-                      this.widget.titleTxt, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0)
-                  )
+                  child:Text(this.widget.titleTxt, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0))
               ),
               Container(
                   height: 400.0,
@@ -47,8 +42,8 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                       print(index);
                     },
                     data: this.widget.bnData.map<BN.BannerItem>(
-                            (Map<String, String> e) => BN.BannerItem.json(e)
-                    ).toList() ,
+                        (Map<String, String> e) => BN.BannerItem.json(e)
+                    ).toList(),
                   )
               ),
               // Container(

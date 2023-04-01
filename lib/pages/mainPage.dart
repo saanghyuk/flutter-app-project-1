@@ -9,7 +9,6 @@ import '../components/banner.dart' as BN;
 import '../views/homeView.dart';
 import '../views/searchView.dart';
 
-
 class MainPage extends StatefulWidget {
   static const String path = "/";
 
@@ -27,14 +26,13 @@ class _MainPageState extends State<MainPage> {
   int _btmIndex = 0;
   final ScrollController _homeViewController = ScrollController();
   final ScrollController _peedViewController = ScrollController();
-
-  final List<String> _menus = ["Home", "SearchView", "PeedView", "Settings"];
+  final List<String> _menus = ["Home", "Menu1", "Menu2"];
 
   @override
   void dispose(){
     this._controller.dispose();
-    this._homeViewController.dispose();
-    this._peedViewController.dispose();
+    _homeViewController.dispose();
+    _peedViewController.dispose();
     super.dispose();
   }
 
@@ -66,15 +64,13 @@ class _MainPageState extends State<MainPage> {
                       (String menuTitle) {
                         final int _pIndex = this._menus.indexOf(menuTitle);
                         return ListTile(
-                              title: Text(menuTitle),
-                              trailing: Icon(Icons.arrow_right),
-                              onTap: () async {
-                                // 닫기
-                                // Drawer 닫고
-                                Navigator.of(context).pop();
-
-                                this._controller.jumpToPage(_pIndex);
-
+                            title: Text(menuTitle),
+                            trailing: Icon(Icons.arrow_right),
+                            onTap: () async {
+                              // 닫기
+                              // Drawer 닫고
+                              Navigator.of(context).pop();
+                              this._controller.jumpToPage(_pIndex);
                       // 다른 코드들 실행되게 하려고 붙여주는 것.
                       // 현재 context에서는 기다리되 다른 context는 실행되도록
                       // await Navigator.of(context).push(
@@ -106,75 +102,75 @@ class _MainPageState extends State<MainPage> {
         physics: NeverScrollableScrollPhysics(),
         children: [
           HomeView(
-
-            controller: this._homeViewController,
-            titleTxt: 'TITLE',
-            bnData:  [ {
-              "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+            controller : this._homeViewController,
+            titleTxt: 'Airbridge SDK TEST',
+            bnData: [ {
+              "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
               // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
               "title":"test1",
               "des": "test1 description",
             },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test2",
                 "des": "test2 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test3",
                 "des": "test3 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test4",
                 "des": "test4 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test5",
                 "des": "test5 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test6",
                 "des": "test6 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test7",
                 "des": "test7 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test8",
                 "des": "test8 description",
               },
               {
-                "img": "https://ssl.pstatic.net/melona/libs/1432/1432421/a099d8fde3ec492dcb72_20230310141831265.jpg",
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
                 "title":"test9",
                 "des": "test9 description",
               }
-            ],
+            ]
           ),
           SearchView(),
-          PeedView(controller: this._peedViewController),
+          PeedView(controller : this._peedViewController),
           Container(color: Colors.pink),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: this._btmIndex,
           onTap: (int index){
+            // print()
             if(this._btmIndex == index){
-              if(index == 0){
-                if(this._homeViewController.position.pixels >= 100){
-                  this._homeViewController.jumpTo(0);
-                }
+                if(index == 0){
+                    if(this._homeViewController.position.pixels >= 100){
+                        this._homeViewController.jumpTo(0);
+              }
 
               }
-              if(this._btmIndex ==2){
-                if(this._peedViewController.position.pixels >= 100){
-                  this._peedViewController.jumpTo(0);
+                if(this._btmIndex ==2){
+                  if(this._peedViewController.position.pixels >= 100){
+                      this._peedViewController.jumpTo(0);
                 }
               }
               return;
@@ -199,3 +195,4 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+

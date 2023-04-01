@@ -3,32 +3,27 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
-
 class BannerItem{
-    final String img;
-    final String title;
-    final String des;
+  final String img;
+  final String title;
+  final String des;
 
-    const BannerItem( {
-      required this.img,
-      required this.title,
-      required this.des,
-    });
+  const BannerItem({required this.img, required this.title, required this.des});
+  // const BannerItem._({required this.img, required this.title, required this.des});
 
-    // BannerItem.json(Map<String, String> e)
-    //     : img = e['img'].toString(),
-    //       title = e['title'].toString(),
-    //       des =e['des'].toString();
+  // BannerItem.json(Map<String, String> e)
+  //   : img = e['img'].toString(),
+  //     title = e['title'].toString(),
+  //     des = e['des'].toString();
 
-    // 더 편한 방법이 있다.
-    factory BannerItem.json(Map<String, String> e){
-      return BannerItem(
-        img:e['img'].toString(),
-        title:e['title'].toString(),
-        des:e['des'].toString(),
+  factory BannerItem.json(Map<String, String> e){
+    return BannerItem(
+          img : e['img'].toString(),
+          title : e['title'].toString(),
+          des : e['des'].toString()
       );
-    }
+  }
+
 }
 
 
@@ -78,21 +73,19 @@ class _BannerState extends State<Banner> {
                 controller: this._scrollController,
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: this.widget.data.map<Widget>(
-                          (BannerItem e){
+                  children: this.widget.data.map<Widget>((BannerItem e){
                     final _eIndex = this.widget.data.indexOf(e);
-                    return BnTextButton(onPressed: () async {
-                      this._controller.jumpToPage(_eIndex);
-                      await this.widget.onTap(_eIndex);
-                      this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
-                            },
-                       // {"title": "title1 "}// map객체에서 선택
-                       // e.title
-                      title: e.title,
-                      isAction: this._btnState == _eIndex,
-                      onComplete: (Size size) {
-                        this._sizes.add(size);
-                      }
+                    return BnTextButton(
+                        onPressed: () async {
+                          this._controller.jumpToPage(_eIndex);
+                          await this.widget.onTap(_eIndex);
+                          this._scrollController.jumpTo(_eIndex*this._sizes[_eIndex].width);
+                    },
+                        title: e.title,
+                        isAction: this._btnState == _eIndex,
+                        onComplete: (Size size) {
+                          this._sizes.add(size);
+                        }
                     );
                   }).toList(),
                 )
@@ -105,15 +98,15 @@ class _BannerState extends State<Banner> {
                         this._btnState = index;
                       });
                       await this.widget.onChanged(index);
-                      print(_scrollController.position);
-                      print(this._scrollController.position.maxScrollExtent);
+                      // print(_scrollController.position);
+                      // print(this._scrollController.position.maxScrollExtent);
                       double result =0;
                       for(int i = 0; i<index ; i++){
                         result += this._sizes[i].width;
                       }
 
                       // maxScrollExtent는 총 스크롤 가능한 길이
-                      print(this._scrollController.position.maxScrollExtent);
+                      // print(this._scrollController.position.maxScrollExtent);
 
                       if(result >= this._scrollController.position.maxScrollExtent){
                         return;
@@ -137,7 +130,7 @@ class _BannerState extends State<Banner> {
                             Container(
                                 padding: EdgeInsets.all(10.0),
                                 alignment: Alignment.centerLeft,
-                                child: Text(this.widget.data[index].des)
+                                child: Text(this.widget.data[index].des.toString())
                             )
                           ],
                         )
@@ -185,5 +178,3 @@ class _BnTextButtonState extends State<BnTextButton> {
     );;
   }
 }
-
-
