@@ -5,85 +5,53 @@ class TitleListData{
 
   const TitleListData({required this.title});
 
-  factory TitleListData.children({
-                  required String title,
-                  required List<Widget> children}){
+
+  factory TitleListData.children({required String title, required List<Widget> children}){
     return TitleListDataChildren._(title: title, children: children);
   }
-
-  factory TitleListData.builder({
-          required String title,
-          required int count,
-          required Widget Function(BuildContext, int) builder
-  }){
-    return TitleListDataBuilder._(
-              title : title,
-              count: count,
-              builder: builder
-    );
+  factory TitleListData.builder({required String title, required int count, required Widget Function(BuildContext, int) builder}){
+    return TitleListDataBuilder._(title: title, count: count, builder: builder);
   }
+
 }
 
 class TitleListDataChildren extends TitleListData{
   final List<Widget> children;
-  // 기본 생성자 지워버리기
   const TitleListDataChildren._({required super.title, required this.children});
 }
+
 
 class TitleListDataBuilder extends TitleListData{
   final int count;
   final Widget Function(BuildContext, int) builder;
+
   TitleListDataBuilder._({required super.title, required this.count, required this.builder});
 }
 
 
 class TitleList extends StatelessWidget {
   final bool _check;
-  // final TitleListDataChildren? _titleListDataChildren;
-  // final TitleListDataBuilder? _titleListDataBuilder;
   final TitleListData titleListData;
+  // final Widget Function(BuildContext, int)? _itemBuilder;
+
   // final String title;
   // final List<Widget>? _children;
   // final int? _itemCount;
-  // final Widget Function(BuildContext, int)? _itemBuilder;
-
-  const TitleList({Key? key,
-    // required this.title,
-    // required List<Widget> children
-    required this.titleListData
-  })
+  const TitleList({Key? key, required this.titleListData})
       : this._check = false,
-        // _titleListDataChildren = titleListData,
-        // _titleListDataBuilder = null,
-        // this._children = children,
-        // this._itemBuilder = null,
-        // this._itemCount = null,
         super(key: key);
 
-  const TitleList.builder({
-    Key? key,
-    required this.titleListData
-    // required this.title,
-    // required int itemCount,
-    // required Widget Function(BuildContext, int) itemBuilder
-  })
+  const TitleList.builder({Key? key, required this.titleListData})
       : _check = true,
-        // _titleListDataBuilder = titleListData,
-        // _titleListDataChildren = null,
-        // this._itemCount = itemCount,
-        // this._itemBuilder = itemBuilder,
-        // this._children = null,
         super(key:key);
 
   @override
   Widget build(BuildContext context) {
     final TextStyle _titleTextStyle =TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0);
     // Widget _titleText = Text(
-    //   this.titleListData.title,
+    //   "AB180", style : TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
     // );
-    // 기본생성자
     if(!this._check){
-      // 타입이 바뀌어줘야 한다.
       final TitleListDataChildren _data = titleListData as TitleListDataChildren;
       return Container(
         child: Column(
@@ -93,6 +61,7 @@ class TitleList extends StatelessWidget {
                 color: Colors.yellow,
                 alignment: Alignment.center,
                 child: Text(_data.title, style: _titleTextStyle),
+                // child: Text("Hello World"),
                 margin: EdgeInsets.only(left:10.0, top:10.0, bottom:10.0, right: 30.0)
             ),
             Expanded(child: SingleChildScrollView(
@@ -105,13 +74,15 @@ class TitleList extends StatelessWidget {
         ),
       );
     }
+
     final TitleListDataBuilder _data = titleListData as TitleListDataBuilder;
     return Container(
         child: Column(
           children: [
             Container(
                 margin: EdgeInsets.all(20.0),
-                child: Text(_data.title, style: _titleTextStyle)
+                child: Text(_data.title, style: _titleTextStyle),
+              // child: Text("Hello World")
             ),
             Expanded(
                 child: ListView.builder(
@@ -143,10 +114,10 @@ class TitleListItem extends StatelessWidget {
             Expanded(child: Container(
               decoration: BoxDecoration(
                 // color: Colors.yellow,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(this.img)
-                )
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.img)
+                  )
               ),
             )),
             Container(

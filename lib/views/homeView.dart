@@ -8,10 +8,6 @@ class HomeView extends StatefulWidget {
   final String titleTxt;
   final ScrollController controller;
   final List<Map<String, String>> bnData;
-
-
-  // final ListBuilderData listBuilderData;
-
   const HomeView({Key? key, required this.controller, required this.titleTxt, required this.bnData}) : super(key: key);
 
   @override
@@ -46,7 +42,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                       print(index);
                     },
                     data: this.widget.bnData.map<BN.BannerItem>(
-                        (Map<String, String> e) => BN.BannerItem.json(e)
+                            (Map<String, String> e) => BN.BannerItem.json(e)
                     ).toList(),
                   )
               ),
@@ -75,65 +71,48 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                   height: 300.0,
                   width: _size.width,
                   child: TitleList.builder(
-                      titleListData: TitleListData.builder(
-                          title: 'AB180',
-                          count: 3,
-                          builder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () async {
-                                await Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (_) => DetailPage())
-                                );
-                              },
-                              child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                                  width: 240.0,
-                                  child: TitleListItem(
-                                      img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
-                                      title: 'test $index',
-                                      subTitle: '1000원')
+                    titleListData: TitleListData.builder(
+                        title: 'AB180',
+                        count: 5,
+                      builder: (BuildContext context, int index) { 
+                          return GestureDetector(
+                            onTap: () async {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => DetailPage())
+                              );
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10.0),
+                              width: 240.0,
+                              child: TitleListItem(
+                                  img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
+                                  title: 'AB180',
+                                  subTitle: 'test $index',
                               ),
-                            );
-                          }
-                      ) ,
+                            ),
+                          );
+                      },
 
-                      // title: this.widget.listTitle,
-                      // itemCount: this.widget.listItemCount,
-                      // itemBuilder: (BuildContext context, int index){
-                      //   return GestureDetector(
-                      //     onTap: () async {
-                      //       await Navigator.of(context).push(
-                      //           MaterialPageRoute(builder: (_) => DetailPage())
-                      //       );
-                      //     },
-                      //     child: Container(
-                      //         margin: EdgeInsets.symmetric(horizontal: 10.0),
-                      //         width: 240.0,
-                      //         child: TitleListItem(
-                      //             img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
-                      //             title: 'test $index',
-                      //             subTitle: '1000원')
-                      //     ),
-                      //   );
-                      )
+                    ),
+                  )
               ),
-              Container(
-                  height: 300.0,
-                  width: _size.width,
-                  // child: TitleList.builder(
-                  //     title: "Test2",
-                  //     itemCount: 3,
-                  //     itemBuilder: (BuildContext context, int index){
-                  //       return Container(
-                  //           margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  //           width: 240.0,
-                  //           child: TitleListItem(
-                  //               img: 'https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg',
-                  //               title: 'test $index',
-                  //               subTitle: '1000원')
-                  //       );
-                  //     })
-              ),
+              // Container(
+              //     height: 300.0,
+              //     width: _size.width,
+              //     child: TitleList.builder(
+              //         title: "Test2",
+              //         itemCount: 3,
+              //         itemBuilder: (BuildContext context, int index){
+              //           return Container(
+              //               margin: EdgeInsets.symmetric(horizontal: 10.0),
+              //               width: 240.0,
+              //               child: TitleListItem(
+              //                   img: 'https://ssl.pstatic.net/melona/libs/1432/1432421/fd1685d2358917002d3d_20230310141843048.jpg',
+              //                   title: 'test $index',
+              //                   subTitle: '1000원')
+              //           );
+              //         })
+              // ),
               Container(
                   child: TitleGrid(
                     // @TODO: 데이터 작업 후 반복 예정
