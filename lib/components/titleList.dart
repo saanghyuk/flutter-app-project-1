@@ -12,7 +12,6 @@ class TitleListData{
   factory TitleListData.builder({required String title, required int count, required Widget Function(BuildContext, int) builder}){
     return TitleListDataBuilder._(title: title, count: count, builder: builder);
   }
-
 }
 
 class TitleListDataChildren extends TitleListData{
