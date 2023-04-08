@@ -26,9 +26,13 @@ class TitleGrid extends StatelessWidget {
         _rowCount = rowCount,
         _axis = null,
         super(key: key);
+
   const TitleGrid.builder({
-    Key? key, required SliverGridDelegate sliverGridDelegate,
-    required Widget Function(BuildContext, int) itemBuilder, required int itemCount, required this.title,
+    Key? key,
+    required SliverGridDelegate sliverGridDelegate,
+    required Widget Function(BuildContext, int) itemBuilder,
+    required int itemCount,
+    required this.title,
     Axis axis = Axis.vertical,
   })
       : _isBuilder = true,
