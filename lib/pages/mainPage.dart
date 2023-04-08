@@ -16,9 +16,6 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
-
-
-
 }
 
 class _MainPageState extends State<MainPage> {
@@ -106,7 +103,6 @@ class _MainPageState extends State<MainPage> {
               titleTxt: 'Airbridge SDK TEST',
               bnData: [ {
                 "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
                 "title":"test1",
                 "des": "test1 description",
               },
@@ -171,7 +167,16 @@ class _MainPageState extends State<MainPage> {
                           ),
                         );
                       }
-          ), homeViewGridItemListData: HomeViewGridItemListData(
+          ),
+            //
+            // {title : "GridTitle", data: : {
+            //    dataId: {id: dataId: data : }
+            //    dataId
+            // }}
+            // --> Proivder
+            // Map
+
+            homeViewGridItemListData: HomeViewGridItemListData(
                 builder: (BuildContext context, int index) => Container(
                   child: Text(index.toString())
                 ),
@@ -180,7 +185,9 @@ class _MainPageState extends State<MainPage> {
                 rowCount: 2
           ),
           ),
-          SearchView(),
+          SearchView(searchViewData: SearchViewData(
+            hintText: "검색어를 입력해 주세요"
+          )),
           PeedView(controller : this._peedViewController),
           Container(color: Colors.pink),
         ],

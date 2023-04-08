@@ -3,9 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../components/roundBorderText.dart';
+
+
+// Main에서 만들어서 넘겨줄 클래스
+class SearchViewData{
+  final String hintText;
+  const SearchViewData({required this.hintText});
+}
+
 
 class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
+  final SearchViewData searchViewData;
+  const SearchView({Key? key, required this.searchViewData}) : super(key: key);
 
   @override
   State<SearchView> createState() => _SearchViewState();
@@ -29,30 +39,24 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
         width: _viewSize.width,
         child: Column(
           children: [
-              InputField(controller: this._controller),
+              InputField(controller: this._controller, hintText: this.widget.searchViewData.hintText),
               Wrap(
                 spacing: 3.0,
                 alignment: WrapAlignment.start,
                 children: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"]
-                    .map<Widget>((String txt) => Container(
-                        margin: EdgeInsets.symmetric(horizontal:10.0, vertical: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.greenAccent.shade200,
-                          border: Border.all(), 
-                          borderRadius: BorderRadius.circular(20.0)
-                                ),
-                        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(20.0),
-                          onTap: (){},
-                          child: Container(
-                            // color: Colors.yellow.shade200,
-                            // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                              child: Text(txt)
-                          ),
-                        ),
-                      )
-
+                    .map<Widget>((String txt) => RoundBorderText(
+                                  txt: txt,
+                                  onTap: (BuildContext context){
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (_) => Scaffold(
+                                        appBar: AppBar(
+                                          title: Text(txt),
+                                          ),
+                                      )
+                                      )
+                                    );
+                                  },
+                    )
                 ).toList(),
               )
           ],
@@ -67,9 +71,10 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
 }
 
 class InputField extends StatelessWidget {
+  final String hintText;
   final void Function(String)? onChanged;
   final TextEditingController controller;
-  const InputField({Key? key, this.onChanged, required this.controller}) : super(key: key);
+  const InputField({Key? key, this.onChanged, required this.controller, required this.hintText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +94,7 @@ class InputField extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 border: OutlineInputBorder(), // OutlineInputBorder
-                hintText: "검색어를 입력해 주세요",
+                hintText: this.hintText,
                 counterText: ""
             ),
             maxLength: 10,
