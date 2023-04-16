@@ -8,11 +8,11 @@ class RoundBorderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal:10.0, vertical: 10.0),
+      margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0), 
       decoration: BoxDecoration(
-          color: Colors.greenAccent.shade200,
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(20.0)
+        color: Colors.greenAccent.shade200, 
+        border: Border.all(), 
+        borderRadius: BorderRadius.circular(20.0)
       ),
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: InkWell(
@@ -22,9 +22,7 @@ class RoundBorderText extends StatelessWidget {
           this.onTap!(context);
         },
         child: Container(
-          // color: Colors.yellow.shade200,
-          // padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-            child: Text(txt)
+          child: Text(txt),
         ),
       ),
     );

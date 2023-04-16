@@ -101,25 +101,25 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                       title: this.widget.homeViewItemListData.title,
                       count: this.widget.homeViewItemListData.count,
                       builder: this.widget.homeViewItemListData.builder,
-                        // title: 'AB180',
-                        // count: 3,
-                        // builder: (BuildContext context, int index) {
-                        //   return GestureDetector(
-                        //     onTap: () async {
-                        //       await Navigator.of(context).push(
-                        //           MaterialPageRoute(builder: (_) => DetailPage())
-                        //       );
-                        //     },
-                        //     child: Container(
-                        //         margin: EdgeInsets.symmetric(horizontal: 10.0),
-                        //         width: 240.0,
-                        //         child: TitleListItem(
-                        //             img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
-                        //             title: 'test $index',
-                        //             subTitle: '1000원')
-                        //     ),
-                        //   );
-                        // }
+                      // title: 'AB180',
+                      // count: 3,
+                      // builder: (BuildContext context, int index) {
+                      //   return GestureDetector(
+                      //     onTap: () async {
+                      //       await Navigator.of(context).push(
+                      //           MaterialPageRoute(builder: (_) => DetailPage())
+                      //       );
+                      //     },
+                      //     child: Container(
+                      //         margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      //         width: 240.0,
+                      //         child: TitleListItem(
+                      //             img: 'https://cdn.pixabay.com/photo/2023/01/28/12/18/fog-7750811_640.jpg',
+                      //             title: 'test $index',
+                      //             subTitle: '1000원')
+                      //     ),
+                      //   );
+                      // }
                     ) ,
 
                     // title: this.widget.listTitle,
@@ -165,29 +165,29 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                     title: this.widget.homeViewGridItemListData.title,
                     rowCount: this.widget.homeViewGridItemListData.rowCount,
                     children: ((){
-                        List<List<Widget>> list = [];
-                        for(int e = 0; e<this.widget.homeViewGridItemListData.itemCount; e++){
-                          Widget _item = Builder(builder: (BuildContext context) => this.widget.homeViewGridItemListData.builder(context , e));
-                          if(e != 0 && e % 2 != 0){
-                            list[list.length-1].add(_item);
-                          }else{
-                            list.add([_item]);
-                          }
+                      List<List<Widget>> list = [];
+                      for(int e = 0; e<this.widget.homeViewGridItemListData.itemCount; e++){
+                        Widget _item = Builder(builder: (BuildContext context) => this.widget.homeViewGridItemListData.builder(context , e));
+                        if(e != 0 && e % 2 != 0){
+                          list[list.length-1].add(_item);
+                        }else{
+                          list.add([_item]);
                         }
-                        return list;
+                      }
+                      return list;
                     })(),
                   )
               ),
               Container(
-                width: _size.width,
-                height: 200.0,
-                child: TitleGrid.builder(
-                    sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: this.widget.homeViewGridItemListData.builder,
-                    itemCount: this.widget.homeViewGridItemListData.itemCount,
-                    title: this.widget.homeViewGridItemListData.title)
+                  width: _size.width,
+                  height: 200.0,
+                  child: TitleGrid.builder(
+                      sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: this.widget.homeViewGridItemListData.builder,
+                      itemCount: this.widget.homeViewGridItemListData.itemCount,
+                      title: this.widget.homeViewGridItemListData.title)
               )
             ],
           ),
@@ -199,5 +199,3 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
-
-

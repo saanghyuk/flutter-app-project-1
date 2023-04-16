@@ -16,6 +16,9 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
+
+
+
 }
 
 class _MainPageState extends State<MainPage> {
@@ -99,94 +102,86 @@ class _MainPageState extends State<MainPage> {
         physics: NeverScrollableScrollPhysics(),
         children: [
           HomeView(
-              controller : this._homeViewController,
-              titleTxt: 'Airbridge SDK TEST',
-              bnData: [ {
+            controller : this._homeViewController,
+            titleTxt: 'Airbridge SDK TEST',
+            bnData: [ {
+              "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+              // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
+              "title":"test1",
+              "des": "test1 description",
+            },
+              {
                 "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test1",
-                "des": "test1 description",
+                "title":"test2",
+                "des": "test2 description",
               },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test2",
-                  "des": "test2 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test3",
-                  "des": "test3 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test4",
-                  "des": "test4 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test5",
-                  "des": "test5 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test6",
-                  "des": "test6 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test7",
-                  "des": "test7 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test8",
-                  "des": "test8 description",
-                },
-                {
-                  "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                  "title":"test9",
-                  "des": "test9 description",
-                }
-              ], homeViewItemListData: HomeViewItemListData(
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test3",
+                "des": "test3 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test4",
+                "des": "test4 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test5",
+                "des": "test5 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test6",
+                "des": "test6 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test7",
+                "des": "test7 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test8",
+                "des": "test8 description",
+              },
+              {
+                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+                "title":"test9",
+                "des": "test9 description",
+              }
+            ], homeViewItemListData: HomeViewItemListData(
+              title: 'AB180',
+              count: 10,
+              builder: (BuildContext context, int index){
+                return GestureDetector(
+                  onTap: () async {
+                    await Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => DetailPage())
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    width: 240.0,
+                    child: TitleListItem(
+                      img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
                       title: 'AB180',
-                      count: 10,
-                      builder: (BuildContext context, int index){
-                        return GestureDetector(
-                          onTap: () async {
-                            await Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => DetailPage())
-                            );
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10.0),
-                            width: 240.0,
-                            child: TitleListItem(
-                              img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
-                              title: 'AB180',
-                              subTitle: 'test $index',
-                            ),
-                          ),
-                        );
-                      }
-          ),
-            //
-            // {title : "GridTitle", data: : {
-            //    dataId: {id: dataId: data : }
-            //    dataId
-            // }}
-            // --> Proivder
-            // Map
-
-            homeViewGridItemListData: HomeViewGridItemListData(
-                builder: (BuildContext context, int index) => Container(
+                      subTitle: 'test $index',
+                    ),
+                  ),
+                );
+              }
+          ), homeViewGridItemListData: HomeViewGridItemListData(
+              builder: (BuildContext context, int index) => Container(
                   child: Text(index.toString())
-                ),
-                title: 'GridTitle',
-                itemCount: 10,
-                rowCount: 2
+              ),
+              title: 'GridTitle',
+              itemCount: 10,
+              rowCount: 2
           ),
           ),
           SearchView(searchViewData: SearchViewData(
-            hintText: "검색어를 입력해 주세요"
+            hintText: "검색어를 입력해 주세요!"
           )),
           PeedView(controller : this._peedViewController),
           Container(color: Colors.pink),
