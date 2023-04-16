@@ -7,7 +7,9 @@ import 'package:flutterstudy2/components/roundBorderText.dart';
 
 class SearchViewData{
   final String hintText;
-  const SearchViewData({required this.hintText});
+  final List<String> keyword;
+  final void Function(int) onTap;
+  const SearchViewData({required this.hintText, required this.keyword, required this.onTap});
 }
 
 class SearchView extends StatefulWidget {
@@ -36,25 +38,12 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
         width: _viewSize.width,
         child: Column(
           children: [
-            InputField(controller: this._controller, hintText: this.widget.searchViewData.hintText),
-            Wrap(
-              spacing: 3.0,
-              alignment: WrapAlignment.start,
-              children: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"]
-                  .map<Widget>((String txt) => RoundBorderText(
-                        txt: txt,
-                        onTap: (BuildContext context){
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => Scaffold(
-                              appBar: AppBar(
-                                title: Text(txt),
-                              ),
-                            ))
-                          );
-                        }
-              )
-              ).toList(),
-            )
+            this._searchInput(),
+            // ListTile(),
+            // KeywordBox(
+            //     data: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"]
+            // ),
+            this._keywordBox(),
           ],
         ),
       ),
@@ -64,6 +53,39 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  Widget _searchInput() => InputField(
+      controller: this._controller,
+      hintText: this.widget.searchViewData.hintText,
+  );
+
+  Widget _keywordBox(){
+    if(this.widget.searchViewData.keyword.isEmpty) return Text("Nothing to recommend");
+    return Wrap(
+      spacing: 3.0,
+      alignment: WrapAlignment.start,
+      children: this.widget.searchViewData.keyword
+          .map<Widget>((String txt) {
+            return RoundBorderText(
+                txt: txt,
+                onTap: (BuildContext context) async {
+                // n번 반복 O(n)의 시간복잡도를 갖는다.
+                final int _index = this.widget.searchViewData.keyword.indexOf(txt);
+                await this.widget.searchViewData.onTap(_index);
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(builder: (_) => Scaffold(
+                //     appBar: AppBar(
+                //       title: Text(txt),
+                //     ),
+                //   ))
+                // );
+
+          }
+      );
+          }
+      ).toList(),
+    );
+  }
 }
 
 class InputField extends StatelessWidget {

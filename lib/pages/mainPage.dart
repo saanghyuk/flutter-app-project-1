@@ -181,7 +181,12 @@ class _MainPageState extends State<MainPage> {
           ),
           ),
           SearchView(searchViewData: SearchViewData(
-            hintText: "검색어를 입력해 주세요!"
+            hintText: "검색어를 입력해 주세요!",
+            // 키워드는 중복이 되면 안된다.
+            keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],
+            onTap: (int index){
+
+            }
           )),
           PeedView(controller : this._peedViewController),
           Container(color: Colors.pink),
