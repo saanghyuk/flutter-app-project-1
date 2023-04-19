@@ -1,4 +1,7 @@
 
+
+
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -38,26 +41,15 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
         width: _viewSize.width,
         child: Column(
           children: [
-            this._searchInput(),
-            // ListTile(),
-            // KeywordBox(
-            //     data: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"]
-            // ),
-            this._keywordBox(),
+            _searchInput(),
+            _keywordBox(),
           ],
         ),
       ),
     );
   }
 
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
-
-  Widget _searchInput() => InputField(
-      controller: this._controller,
-      hintText: this.widget.searchViewData.hintText,
-  );
+  Widget _searchInput() => InputField(controller: this._controller, hintText: this.widget.searchViewData.hintText);
 
   Widget _keywordBox(){
     if(this.widget.searchViewData.keyword.isEmpty) return Text("Nothing to recommend");
@@ -65,27 +57,27 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
       spacing: 3.0,
       alignment: WrapAlignment.start,
       children: this.widget.searchViewData.keyword
-          .map<Widget>((String txt) {
-            return RoundBorderText(
-                txt: txt,
-                onTap: (BuildContext context) async {
-                // n번 반복 O(n)의 시간복잡도를 갖는다.
-                final int _index = this.widget.searchViewData.keyword.indexOf(txt);
-                await this.widget.searchViewData.onTap(_index);
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(builder: (_) => Scaffold(
-                //     appBar: AppBar(
-                //       title: Text(txt),
-                //     ),
-                //   ))
-                // );
-
+          .map<Widget>((String txt) => RoundBorderText(
+          txt: txt,
+          onTap: (BuildContext context) async {
+            final int _index = this.widget.searchViewData.keyword.indexOf(txt);
+            await this.widget.searchViewData.onTap(_index);
+            // Navigator.of(context).push(
+            //     MaterialPageRoute(builder: (_) => Scaffold(
+            //       appBar: AppBar(
+            //         title: Text(txt),
+            //       ),
+            //     ))
+            // );
           }
-      );
-          }
+      )
       ).toList(),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class InputField extends StatelessWidget {
