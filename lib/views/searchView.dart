@@ -1,17 +1,16 @@
-
-
-
-
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterstudy2/components/roundBorderText.dart';
 
+import '../components/inputField.dart';
+
 class SearchViewData{
   final String hintText;
   final List<String> keyword;
-  final void Function(int) onTap;
+  final FutureOr<void> Function(int) onTap;
   const SearchViewData({required this.hintText, required this.keyword, required this.onTap});
 }
 
@@ -60,15 +59,11 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
           .map<Widget>((String txt) => RoundBorderText(
           txt: txt,
           onTap: (BuildContext context) async {
+            // for문 한번 동작. onTap내부는 for문 한 번.
             final int _index = this.widget.searchViewData.keyword.indexOf(txt);
+            // TODO 20230419
             await this.widget.searchViewData.onTap(_index);
-            // Navigator.of(context).push(
-            //     MaterialPageRoute(builder: (_) => Scaffold(
-            //       appBar: AppBar(
-            //         title: Text(txt),
-            //       ),
-            //     ))
-            // );
+
           }
       )
       ).toList(),
@@ -78,45 +73,4 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
-}
-
-class InputField extends StatelessWidget {
-  final void Function(String)? onChanged;
-  final TextEditingController controller;
-  final String hintText;
-  const InputField({Key? key, this.onChanged, required this.controller, required this.hintText}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Platform.isIOS ?
-    CupertinoTextField(
-      clearButtonMode: OverlayVisibilityMode.editing,
-    )
-        :
-    Container(
-      margin: EdgeInsets.all(20.0),
-      child: Stack(
-        children: [
-          TextField(
-            onChanged: this.onChanged,
-            controller: this.controller,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(), // OutlineInputBorder
-                hintText: this.hintText,
-                counterText: ""
-            ),
-            maxLength: 10,
-          ),
-          Positioned(
-              right: 0,
-              top: 0,
-              bottom:0,
-              child: IconButton(icon: Icon(Icons.close), onPressed: (){},)
-          )
-        ],
-      ),
-    );
-  }
 }
