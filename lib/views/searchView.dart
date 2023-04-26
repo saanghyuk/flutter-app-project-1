@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:io';
 
@@ -59,11 +60,15 @@ class _SearchViewState extends State<SearchView> with AutomaticKeepAliveClientMi
           .map<Widget>((String txt) => RoundBorderText(
           txt: txt,
           onTap: (BuildContext context) async {
-            // for문 한번 동작. onTap내부는 for문 한 번.
             final int _index = this.widget.searchViewData.keyword.indexOf(txt);
-            // TODO 20230419
             await this.widget.searchViewData.onTap(_index);
-
+            // Navigator.of(context).push(
+            //     MaterialPageRoute(builder: (_) => Scaffold(
+            //       appBar: AppBar(
+            //         title: Text(txt),
+            //       ),
+            //     ))
+            // );
           }
       )
       ).toList(),
