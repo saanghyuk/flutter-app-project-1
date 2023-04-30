@@ -25,7 +25,6 @@ class PeedView extends StatefulWidget {
 }
 
 class _PeedViewState extends State<PeedView> with AutomaticKeepAliveClientMixin{
-
   bool check = false;
   @override void initState() {
     // TODO: implement initState

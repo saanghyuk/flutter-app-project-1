@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
+import 'package:flutterstudy2/providers/homeViewProvider.dart';
 import 'package:flutterstudy2/views/peedView.dart';
+import 'package:provider/provider.dart';
 import '../components/banner.dart' as BN;
 import '../views/homeView.dart';
 import '../views/searchView.dart';
@@ -17,9 +19,6 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
-
-
-
 }
 
 class _MainPageState extends State<MainPage> {
@@ -37,11 +36,26 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 
+  HomeViewProvider? homeViewProvider;
+
+  @override
+  void didChangeDependencies() {
+    homeViewProvider = context.watch<HomeViewProvider>();
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     // 뒤로 갈 수 있는지 여부
     print(Navigator.of(context).canPop());
+
+    if(this.homeViewProvider == null) return Material(
+      child: Center(
+        child: Text("고객센터로 연락해주세요. Err P-001") // Provider를 불러오지 않았다.
+      ),
+    );
 
     final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
