@@ -53,11 +53,12 @@ class _MainPageState extends State<MainPage> {
 
     if(this.homeViewProvider == null) return Material(
       child: Center(
-        child: Text("고객센터로 연락해주세요. Err P-001") // Provider를 불러오지 않았다.
+          child: Text("고객센터로 연락해주세요. Err P-001") // Provider를 불러오지 않았다.
       ),
     );
 
     final bool _canPop = Navigator.of(context).canPop();
+
     return Scaffold(
       // drawerEnableOpenDragGesture: false,
       // drawerScrimColor: Colors.blue,
@@ -204,15 +205,15 @@ class _MainPageState extends State<MainPage> {
           )),
           // PeedView(controller : this._peedViewController),
           PeedView(
-              controller: this._peedViewController,
-              data: [ PeedViewModel(uid: '', name:"User1", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg", ), PeedViewModel(uid: '', name:"User2", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), PeedViewModel(uid: '', name:"User3", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), ],
-              onTap1: (String uid, int index){},
-              onTap2: (String uid, int index){},
-              onTap3: (String uid, int index){},
+            controller: this._peedViewController,
+            data: [ PeedViewModel(uid: '', name:"User1", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg", ), PeedViewModel(uid: '', name:"User2", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), PeedViewModel(uid: '', name:"User3", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), ],
+            onTap1: (String uid, int index){},
+            onTap2: (String uid, int index){},
+            onTap3: (String uid, int index){},
             event: () async {
-                print("Event");
-                await Future.delayed(Duration(seconds: 3));
-                print("Event End!");
+              print("Event");
+              await Future.delayed(Duration(seconds: 3));
+              print("Event End!");
             },
           ),
           Container(color: Colors.pink),

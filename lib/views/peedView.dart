@@ -48,26 +48,26 @@ class _PeedViewState extends State<PeedView> with AutomaticKeepAliveClientMixin{
     return Container(
       width: _viewSize.width,
       child: ListView.builder(
-          controller: this.widget.controller,
-          itemCount: this.widget.data.length,
-          itemBuilder: (BuildContext context, int index){
-            final PeedViewModel _model = this.widget.data[index];
-            return PeedCard(
-                name: _model.name,
-                imgSrc: _model.img,
-                imgSize: _viewSize.width,
-                profileImgSrc: _model.profileImg,
-                onTap1: (){
-                  this.widget.onTap1(_model.uid, index);
-                },
-                onTap2:(){
-                  this.widget.onTap2(_model.uid, index);
-                },
-                onTap3: (){
-                  this.widget.onTap3(_model.uid, index);
-                }
-            );
-          },
+        controller: this.widget.controller,
+        itemCount: this.widget.data.length,
+        itemBuilder: (BuildContext context, int index){
+          final PeedViewModel _model = this.widget.data[index];
+          return PeedCard(
+              name: _model.name,
+              imgSrc: _model.img,
+              imgSize: _viewSize.width,
+              profileImgSrc: _model.profileImg,
+              onTap1: (){
+                this.widget.onTap1(_model.uid, index);
+              },
+              onTap2:(){
+                this.widget.onTap2(_model.uid, index);
+              },
+              onTap3: (){
+                this.widget.onTap3(_model.uid, index);
+              }
+          );
+        },
 
       ),
     );
