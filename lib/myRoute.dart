@@ -11,7 +11,8 @@ class MyRoute extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeViewProvider>(
-            create: (_) => HomeViewProvider()
+            create: (_) => HomeViewProvider(),
+            // update: update
         )
       ],
       child: MaterialApp(

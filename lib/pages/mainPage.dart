@@ -1,4 +1,5 @@
 
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,9 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
+
+
+
 }
 
 class _MainPageState extends State<MainPage> {
@@ -27,6 +31,15 @@ class _MainPageState extends State<MainPage> {
   final ScrollController _homeViewController = ScrollController();
   final ScrollController _peedViewController = ScrollController();
   final List<String> _menus = ["Home", "Menu1", "Menu2"];
+
+  // @override
+  // void initState(){
+  //   this._peedViewController.addListener(() {
+  //     print(this._peedViewController.position.pixels);
+  //   });
+  //   super.initState();
+  // }
+
 
   @override
   void dispose(){
@@ -53,12 +66,11 @@ class _MainPageState extends State<MainPage> {
 
     if(this.homeViewProvider == null) return Material(
       child: Center(
-          child: Text("고객센터로 연락해주세요. Err P-001") // Provider를 불러오지 않았다.
-      ),
+        child: Text("고객센터로 연락해 주세요. Err P-001")
+      )
     );
 
     final bool _canPop = Navigator.of(context).canPop();
-
     return Scaffold(
       // drawerEnableOpenDragGesture: false,
       // drawerScrimColor: Colors.blue,
@@ -199,22 +211,29 @@ class _MainPageState extends State<MainPage> {
           SearchView(searchViewData: SearchViewData(
               hintText: "검색어를 입력해 주세요!",
               keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],
-              onTap: (int index){
-
+              onTap: (int index) async {
+                //
               }
           )),
-          // PeedView(controller : this._peedViewController),
+          // Provider
+          // JSON{} => Provider가 관리하는 Model => ViewModel
           PeedView(
-            controller: this._peedViewController,
-            data: [ PeedViewModel(uid: '', name:"User1", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg", ), PeedViewModel(uid: '', name:"User2", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), PeedViewModel(uid: '', name:"User3", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"), ],
-            onTap1: (String uid, int index){},
-            onTap2: (String uid, int index){},
-            onTap3: (String uid, int index){},
             event: () async {
-              print("Event");
-              await Future.delayed(Duration(seconds: 3));
+              print("Event!");
+              await Future.delayed(Duration(seconds : 3));
               print("Event End!");
             },
+            controller : this._peedViewController,
+            data: [
+              PeedViewModel(uid: '', name:"User1", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg", ),
+              PeedViewModel(uid: '', name:"User2", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"),
+              PeedViewModel(uid: '', name:"User3", profileImg: "https://cdn.pixabay.com/photo/2023/04/14/10/27/superb-fairywren-7924728_640.jpg", img: "https://cdn.pixabay.com/photo/2023/04/15/17/08/bernese-mountain-dog-7928156_1280.jpg"),
+            ],
+            onTap1: (String uid, int index) {
+
+            },
+            onTap2: (String uid, int index) {  },
+            onTap3: (String uid, int index) {  },
           ),
           Container(color: Colors.pink),
         ],

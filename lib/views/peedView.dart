@@ -11,6 +11,7 @@ class PeedViewModel{
   const PeedViewModel({required this.uid, required this.name, required this.profileImg, required this.img});
 }
 
+
 class PeedView extends StatefulWidget {
   final ScrollController controller;
   final List<PeedViewModel> data;
@@ -25,22 +26,27 @@ class PeedView extends StatefulWidget {
 }
 
 class _PeedViewState extends State<PeedView> with AutomaticKeepAliveClientMixin{
+
   bool check = false;
-  @override void initState() {
-    // TODO: implement initState
-    this.widget.controller.addListener(() async{
+
+  @override
+  void initState(){
+    this.widget.controller.addListener(() async {
+      // print(this.widget.controller.position.pixels);
       if(check){
         return;
       }
       if(this.widget.controller.position.pixels > this.widget.controller.position.maxScrollExtent*.50){
-        this.check=true;
+        this.check= true;
         await this.widget.event();
         this.check = false;
+
+
       }
     });
-
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,25 +56,22 @@ class _PeedViewState extends State<PeedView> with AutomaticKeepAliveClientMixin{
       child: ListView.builder(
         controller: this.widget.controller,
         itemCount: this.widget.data.length,
-        itemBuilder: (BuildContext context, int index){
+        itemBuilder: (BuildContext context, int index) {
           final PeedViewModel _model = this.widget.data[index];
           return PeedCard(
-              name: _model.name,
-              imgSrc: _model.img,
-              imgSize: _viewSize.width,
-              profileImgSrc: _model.profileImg,
-              onTap1: (){
-                this.widget.onTap1(_model.uid, index);
-              },
-              onTap2:(){
-                this.widget.onTap2(_model.uid, index);
-              },
-              onTap3: (){
-                this.widget.onTap3(_model.uid, index);
-              }
+            name: _model.name,
+            imgSize: _viewSize.width,
+            imgSrc: _model.img,
+            profileImgSrc: _model.profileImg,
+            onTap1: (){
+              this.widget.onTap1(_model.uid, index);
+            }, onTap2: () {
+            this.widget.onTap2(_model.uid, index);
+          }, onTap3: () {
+            this.widget.onTap3(_model.uid, index);
+          },
           );
         },
-
       ),
     );
   }
