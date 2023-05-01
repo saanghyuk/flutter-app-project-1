@@ -10,6 +10,8 @@ import 'package:flutterstudy2/providers/homeViewProvider.dart';
 import 'package:flutterstudy2/views/peedView.dart';
 import 'package:provider/provider.dart';
 import '../components/banner.dart' as BN;
+import '../providers/BannerAdapter.dart';
+import '../providers/status_enum.dart';
 import '../views/homeView.dart';
 import '../views/searchView.dart';
 
@@ -55,6 +57,8 @@ class _MainPageState extends State<MainPage> {
   void didChangeDependencies() {
     homeViewProvider = context.watch<HomeViewProvider>();
     // TODO: implement didChangeDependencies
+    if(!this.mounted) return;
+    this.setState(() {});
     super.didChangeDependencies();
   }
 
@@ -69,6 +73,16 @@ class _MainPageState extends State<MainPage> {
         child: Text("고객센터로 연락해 주세요. Err P-001")
       )
     );
+
+    if(this.homeViewProvider!.isLoad == Status.Fail){
+    }
+    if(this.homeViewProvider!.isLoad == Status.Load){
+      return Material(
+        child: Center(
+          child: CircularProgressIndicator(),
+        )
+      );
+    }
 
     final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
@@ -132,53 +146,57 @@ class _MainPageState extends State<MainPage> {
           HomeView(
             controller : this._homeViewController,
             titleTxt: 'Airbridge SDK TEST',
-            bnData: [ {
-              "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-              // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
-              "title":"test1",
-              "des": "test1 description",
-            },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test2",
-                "des": "test2 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test3",
-                "des": "test3 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test4",
-                "des": "test4 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test5",
-                "des": "test5 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test6",
-                "des": "test6 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test7",
-                "des": "test7 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test8",
-                "des": "test8 description",
-              },
-              {
-                "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
-                "title":"test9",
-                "des": "test9 description",
-              }
-            ], homeViewItemListData: HomeViewItemListData(
+            bnData: BannerAdapter.BannderModel_2_BnDataModel(
+                bannerModel : this.homeViewProvider!.homeDataModel!.listBn
+             ),
+            // bnData: [ {
+            //   "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //   // "img": "https://ca.slack-edge.com/T07GVPPHU-U03J34P9TCN-111f3245ddb1-512",
+            //   "title":"test1",
+            //   "des": "test1 description",
+            // },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test2",
+            //     "des": "test2 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test3",
+            //     "des": "test3 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test4",
+            //     "des": "test4 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test5",
+            //     "des": "test5 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test6",
+            //     "des": "test6 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test7",
+            //     "des": "test7 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test8",
+            //     "des": "test8 description",
+            //   },
+            //   {
+            //     "img": "https://cdn.pixabay.com/photo/2023/03/19/12/24/chick-7862460_640.jpg",
+            //     "title":"test9",
+            //     "des": "test9 description",
+            //   }
+            // ],
+            homeViewItemListData: HomeViewItemListData(
               title: 'AB180',
               count: 10,
               builder: (BuildContext context, int index){

@@ -4,6 +4,7 @@ import '../components/titleGrid.dart';
 import '../components/titleList.dart';
 import '../pages/detailPage.dart';
 
+
 class HomeViewItemListData{
   final String title;
   final int count;
@@ -26,10 +27,30 @@ class HomeViewGridItemListData{
 }
 
 
+class BnDataModel{
+  final String title;
+  final String img;
+  final String des;
+
+  const BnDataModel({required this.title, required this.img, required this.des});
+  // factory BnDataModel.json(json) => BnDataModel(
+  //   title: json['title'].toString(),
+  //   img: json['img'].toString(),
+  //   des: json['des'].toString(),
+  // );
+  BN.BannerItem toBannerItemModel(){
+    return BN.BannerItem(
+      title: this.title,
+      img: this.img,
+      des: this.des,
+    );
+  }
+}
+
 class HomeView extends StatefulWidget {
   final String titleTxt;
   final ScrollController controller;
-  final List<Map<String, String>> bnData;
+  final List<BnDataModel> bnData;
   final HomeViewItemListData homeViewItemListData;
   final HomeViewGridItemListData homeViewGridItemListData;
   // final ListBuilderData listBuilderData;
@@ -68,7 +89,7 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                       print(index);
                     },
                     data: this.widget.bnData.map<BN.BannerItem>(
-                            (Map<String, String> e) => BN.BannerItem.json(e)
+                            (BnDataModel e) => e.toBannerItemModel()
                     ).toList(),
                   )
               ),
