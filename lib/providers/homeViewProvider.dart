@@ -75,7 +75,7 @@ class HomeGridProductModel{
   factory HomeGridProductModel.json(Map<String, dynamic> json) => HomeGridProductModel(
       title: json['title'].toString(),
       items: List.of(json['items']).map<HomeGridItemModel>(
-          (e) => HomeGridItemModel.json((e))
+              (e) => HomeGridItemModel.json((e))
       ).toList()
   );
 
@@ -85,26 +85,24 @@ class HomeGridProductModel{
   );
 }
 
-
 class HomeViewProvider with ChangeNotifier{
 
   HomeViewProvider(){
     Future(this._init);
   }
-
   Status isLoad = Status.Load;
 
   void _init() async {
     try{
       String _body = await this._fetch();
       this._homeDataModel = await compute(parse, _body);
-      await Future.delayed(Duration(milliseconds: 500));
       this.isLoad = Status.OK;
       this.notifyListeners();
     }catch(e){
       this.isLoad = Status.Fail;
       this.notifyListeners();
     }
+
   }
 
   static HomeDataModel parse(String body){

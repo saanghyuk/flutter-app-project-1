@@ -1,9 +1,11 @@
+
+
+
 import 'package:flutter/material.dart';
 import '../components/banner.dart' as BN;
 import '../components/titleGrid.dart';
 import '../components/titleList.dart';
 import '../pages/detailPage.dart';
-
 
 class HomeViewItemListData{
   final String title;
@@ -26,18 +28,12 @@ class HomeViewGridItemListData{
   });
 }
 
-
 class BnDataModel{
   final String title;
   final String img;
   final String des;
-
   const BnDataModel({required this.title, required this.img, required this.des});
-  // factory BnDataModel.json(json) => BnDataModel(
-  //   title: json['title'].toString(),
-  //   img: json['img'].toString(),
-  //   des: json['des'].toString(),
-  // );
+
   BN.BannerItem toBannerItemModel(){
     return BN.BannerItem(
       title: this.title,
@@ -46,6 +42,7 @@ class BnDataModel{
     );
   }
 }
+
 
 class HomeView extends StatefulWidget {
   final String titleTxt;
