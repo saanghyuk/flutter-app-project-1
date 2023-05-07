@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutterstudy2/adapters/mainPageAdapter.dart';
 import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
@@ -40,6 +41,7 @@ class _MainPageState extends State<MainPage> {
   //   super.initState();
   // }
 
+  final MainPageAdapterInterface _mainPageAdapter = MainPageAdapter();
 
   @override
   void dispose(){
@@ -111,7 +113,6 @@ class _MainPageState extends State<MainPage> {
             ],
           )
         // child: ,
-
       ),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(9, 67, 214, 1),
@@ -132,7 +133,7 @@ class _MainPageState extends State<MainPage> {
           HomeView(
             controller : this._homeViewController,
             titleTxt: 'Airbridge SDK TEST',
-            bnData: BannerAdapter.BannerModel_2_BnDataModel(
+            bnData: _mainPageAdapter.BannerModel_2_BnDataModel(
                 bannerModel: this.homeViewProvider!.homeDataModel!.listBn
             ),
             homeViewItemListData: HomeViewItemListData(
@@ -156,22 +157,38 @@ class _MainPageState extends State<MainPage> {
                   ),
                 );
               }
-          ), homeViewGridItemListData: HomeViewGridItemListData(
-              builder: (BuildContext context, int index) => Container(
-                  child: Text(index.toString())
               ),
-              title: 'GridTitle',
-              itemCount: 10,
-              rowCount: 2
+            homeViewGridItemListData: _mainPageAdapter.grid(
+              data: this.homeViewProvider!.homeDataModel!.gridProductModel,
+              builder: (HomeGridItemModel model) => Expanded(
+                child: Container(
+                      height: 300.0,
+                      alignment: Alignment.center,
+                      child: Text(model.title),
+                  ),
+              ),
+            ),
+            // homeViewGridItemListData: HomeViewGridItemListData(
+            //   builder: (BuildContext context, int index) => Container(
+            //       child: Text(index.toString())
+            //   ),
+            //   title: 'GridTitle',
+            //   itemCount: 10,
+            //   rowCount: 2
+            // ),
           ),
-          ),
-          SearchView(searchViewData: SearchViewData(
+          SearchView(searchViewData:
+            // _mainPageAdapter.searchView(
+            //   provider.searchData
+            // ),
+          SearchViewData(
               hintText: "검색어를 입력해 주세요!",
               keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],
               onTap: (int index) async {
                 //
               }
-          )),
+            )
+          ),
           // Provider
           // JSON{} => Provider가 관리하는 Model => ViewModel
           PeedView(

@@ -196,17 +196,17 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin{
                     })(),
                   )
               ),
-              Container(
-                  width: _size.width,
-                  height: 200.0,
-                  child: TitleGrid.builder(
-                      sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemBuilder: this.widget.homeViewGridItemListData.builder,
-                      itemCount: this.widget.homeViewGridItemListData.itemCount,
-                      title: this.widget.homeViewGridItemListData.title)
-              )
+              // Container(
+              //     width: _size.width,
+              //     height: 200.0,
+              //     child: TitleGrid.builder(
+              //         sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //           crossAxisCount: 2,
+              //         ),
+              //         itemBuilder: this.widget.homeViewGridItemListData.builder,
+              //         itemCount: this.widget.homeViewGridItemListData.itemCount,
+              //         title: this.widget.homeViewGridItemListData.title)
+              // )
             ],
           ),
         )
