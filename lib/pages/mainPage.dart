@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutterstudy2/adapters/mainPageAdapter.dart';
 import 'package:flutterstudy2/components/titleGrid.dart';
 import 'package:flutterstudy2/components/titleList.dart';
 import 'package:flutterstudy2/pages/detailPage.dart';
@@ -10,6 +9,7 @@ import 'package:flutterstudy2/providers/BannerAdapter.dart';
 import 'package:flutterstudy2/providers/homeViewProvider.dart';
 import 'package:flutterstudy2/views/peedView.dart';
 import 'package:provider/provider.dart';
+import '../adapters/mainPageAdapter.dart';
 import '../components/banner.dart' as BN;
 import '../views/homeView.dart';
 import '../views/searchView.dart';
@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> {
   //   });
   //   super.initState();
   // }
+
 
   final MainPageAdapterInterface _mainPageAdapter = MainPageAdapter();
 
@@ -113,6 +114,7 @@ class _MainPageState extends State<MainPage> {
             ],
           )
         // child: ,
+
       ),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(9, 67, 214, 1),
@@ -137,58 +139,46 @@ class _MainPageState extends State<MainPage> {
                 bannerModel: this.homeViewProvider!.homeDataModel!.listBn
             ),
             homeViewItemListData: HomeViewItemListData(
-              title: 'AB180',
-              count: 10,
-              builder: (BuildContext context, int index){
-                return GestureDetector(
-                  onTap: () async {
-                    await Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => DetailPage())
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    width: 240.0,
-                    child: TitleListItem(
-                      img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
-                      title: 'AB180',
-                      subTitle: 'test $index',
+                title: 'AB180',
+                count: 10,
+                builder: (BuildContext context, int index){
+                  return GestureDetector(
+                    onTap: () async {
+                      await Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => DetailPage())
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      width: 240.0,
+                      child: TitleListItem(
+                        img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
+                        title: 'AB180',
+                        subTitle: 'test $index',
+                      ),
                     ),
-                  ),
-                );
-              }
-              ),
+                  );
+                }
+            ),
             homeViewGridItemListData: _mainPageAdapter.grid(
-              data: this.homeViewProvider!.homeDataModel!.gridProductModel,
-              builder: (HomeGridItemModel model) => Expanded(
-                child: Container(
+                data: this.homeViewProvider!.homeDataModel!.gridProductModel,
+                builder: (HomeGridItemModel model) => Expanded(
+                    child: Container(
                       height: 300.0,
                       alignment: Alignment.center,
-                      child: Text(model.title),
-                  ),
-              ),
-            ),
-            // homeViewGridItemListData: HomeViewGridItemListData(
-            //   builder: (BuildContext context, int index) => Container(
-            //       child: Text(index.toString())
-            //   ),
-            //   title: 'GridTitle',
-            //   itemCount: 10,
-            //   rowCount: 2
-            // ),
+                      child: Text(model.title)
+                    )
+                )
+
+            )
           ),
-          SearchView(searchViewData:
-            // _mainPageAdapter.searchView(
-            //   provider.searchData
-            // ),
-          SearchViewData(
+          SearchView(searchViewData: SearchViewData(
               hintText: "검색어를 입력해 주세요!",
               keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],
               onTap: (int index) async {
                 //
               }
-            )
-          ),
+          )),
           // Provider
           // JSON{} => Provider가 관리하는 Model => ViewModel
           PeedView(

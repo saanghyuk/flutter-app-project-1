@@ -184,6 +184,14 @@ class HomeViewProvider with ChangeNotifier{
           }, {
             "title": "GRID002",
             "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
+          },
+          {
+            "title": "GRID003",
+            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
+          },
+          {
+            "title": "GRID004",
+            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
           }
         ]
       }
