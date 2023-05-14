@@ -163,15 +163,18 @@ class _MainPageState extends State<MainPage> {
             homeViewGridItemListData: _mainPageAdapter.grid(
                 data: this.homeViewProvider!.homeDataModel!.gridProductModel,
                 builder: (HomeGridItemModel model) => Expanded(
-                    child: Container(
-                      height: 300.0,
-                      alignment: Alignment.center,
-                      child: Text(model.title)
-                    )
+                      child: GestureDetector(
+                        onTap: (){},
+                        child: Container(
+                          height: 300.0,
+                          alignment: Alignment.center,
+                          child: Text(model.title)
+                        ),
+                      )
+                  ),
                 )
 
-            )
-          ),
+            ),
           SearchView(searchViewData: SearchViewData(
               hintText: "검색어를 입력해 주세요!",
               keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],
