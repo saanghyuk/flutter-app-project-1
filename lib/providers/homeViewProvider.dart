@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutterstudy2/providers/status_enum.dart';
+import 'package:flutterstudy2/services/productService.dart' as PD_Service;
+
+import '../services/productService.dart';
 
 class HomeDataModel{
   final List<BannerModel> listBn;
@@ -14,6 +17,36 @@ class HomeDataModel{
       listProductModel: listProductModel.copy(),
       gridProductModel: gridProductModel.copy()
   );
+
+  factory HomeDataModel.parse(PD_Service.ProductModel productModel){
+      return HomeDataModel(
+          listBn: (productModel.listBn as List<PD_Service.BannerModel>).map<BannerModel>(
+              (PD_Service.BannerModel e) => BannerModel(
+                  title: e.title,
+                  img: e.img,
+                  des: e.des,
+              )
+          ).toList(),
+          listProductModel: HomeListProductModel(
+              title: productModel.listProductModel.title,
+              items: productModel.listProductModel.items.map<HomeListItem>(
+                  (PD_Service.HomeListItem e) => HomeListItem(
+                    img: e.img,
+                    des: e.des,
+                    title: e.title,
+                  )
+              ).toList()
+          ),
+          gridProductModel: HomeGridProductModel(
+            title:productModel.gridProductModel.title,
+            items: productModel.gridProductModel.items.map<HomeGridItemModel>(
+                    (PD_Service.HomeGridItemModel e) => HomeGridItemModel(
+                        title: e.title,
+                        img: e.img
+                    )).toList()
+          )
+      );
+  }
 }
 
 class BannerModel {
@@ -87,15 +120,27 @@ class HomeGridProductModel{
 
 class HomeViewProvider with ChangeNotifier{
 
+  final ProductService _productService = ProductService();
+
   HomeViewProvider(){
     Future(this._init);
   }
   Status isLoad = Status.Load;
 
   void _init() async {
+
+
+
     try{
-      String _body = await this._fetch();
-      this._homeDataModel = await compute(parse, _body);
+
+      // String _body = await this._fetch();
+      // this._homeDataModel = await compute(parse, _body);
+
+      /// TODO ProductModel => HomeDataModel
+      this._homeDataModel = HomeDataModel.parse(
+          await this._productService.fetchIsolate()
+      );
+
       this.isLoad = Status.OK;
       this.notifyListeners();
     }catch(e){
@@ -105,21 +150,6 @@ class HomeViewProvider with ChangeNotifier{
 
   }
 
-  static HomeDataModel parse(String body){
-    Map<String, dynamic> _body = json.decode(body);
-    // this._setBanner(_body['bn']);
-    final List<BannerModel> _listBn = List.of(_body["bn"]).map((json) => BannerModel.json(json)).toList();
-    // this._setHomeListProduct(_body['list']);
-    final HomeListProductModel _listP = HomeListProductModel.json(_body["list"]);
-    // this._setGridProduct(_body['grid']);
-    final HomeGridProductModel _gridP = HomeGridProductModel.json(_body['grid']);
-
-    return HomeDataModel(
-        listBn: _listBn,
-        listProductModel: _listP,
-        gridProductModel: _gridP
-    );
-  }
 
   final String homeTitle = 'logo';
   // List<BannerModel>? _bannerData;
@@ -147,54 +177,5 @@ class HomeViewProvider with ChangeNotifier{
   HomeDataModel? _homeDataModel;
   HomeDataModel? get homeDataModel => this._homeDataModel?.copy();
 
-  Future<String> _fetch() async {
-    // HTTP
-    return json.encode({
-      "bn": [
-        {
-          "title": "BN001",
-          "img": "https://cdn.pixabay.com/photo/2023/03/28/19/55/lake-7884049_640.jpg",
-          "des": "first banner"
-        }, {
-          "title": "BN002",
-          "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
-          "des": "second banner"
-        }
-      ],
-      "list": {
-        "title": "List1",
-        "items": [
-          {
-            "title": "BN001",
-            "img": "https://cdn.pixabay.com/photo/2023/03/28/19/55/lake-7884049_640.jpg",
-            "des": "first banner"
-          }, {
-            "title": "BN002",
-            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
-            "des": "second banner"
-          }
-        ]
-      },
-      "grid": {
-        "title": "GRID1",
-        "items": [
-          {
-            "title": "GRID001",
-            "img": "https://cdn.pixabay.com/photo/2023/03/28/19/55/lake-7884049_640.jpg",
-          }, {
-            "title": "GRID002",
-            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
-          },
-          {
-            "title": "GRID003",
-            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
-          },
-          {
-            "title": "GRID004",
-            "img": "https://cdn.pixabay.com/photo/2023/04/02/18/13/electricity-7895181_1280.jpg",
-          }
-        ]
-      }
-    });
-  }
+
 }
