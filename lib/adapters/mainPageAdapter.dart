@@ -2,14 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutterstudy2/pages/mainPage.dart';
-
 import '../providers/homeViewProvider.dart';
 import '../views/homeView.dart';
 
 
 abstract class MainPageAdapterInterface{
   List<BnDataModel> BannerModel_2_BnDataModel({required List<BannerModel> bannerModel});
-
   HomeViewGridItemListData grid({
     required HomeGridProductModel data,
     required builder,
