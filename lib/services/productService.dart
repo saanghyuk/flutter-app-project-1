@@ -95,11 +95,11 @@ abstract interface class ProductServiceInterface{
 }
 
 base class ProductServiceBase extends ProductServiceInterface{
-  final Connect _connect = Connect();
+  final Connect _connect = Connect_Local();
 
   @override
   Future<ProductModel> fetchIsolate({int limit = 10}) async {
-    final ConnectResModel _res = await this._connect.getReq(path: "path");
+    final ConnectResModel _res = await this._connect.getReq(path: "/product");
     // Compute가 Future를 리턴하다.
     return await compute(parse, _res.body);
   }

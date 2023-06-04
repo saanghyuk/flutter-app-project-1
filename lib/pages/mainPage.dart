@@ -11,6 +11,7 @@ import 'package:flutterstudy2/views/peedView.dart';
 import 'package:provider/provider.dart';
 import '../adapters/mainPageAdapter.dart';
 import '../components/banner.dart' as BN;
+import '../providers/status_enum.dart';
 import '../views/homeView.dart';
 import '../views/searchView.dart';
 
@@ -67,11 +68,25 @@ class _MainPageState extends State<MainPage> {
     // 뒤로 갈 수 있는지 여부
     print(Navigator.of(context).canPop());
 
+    // didChangeDependencies 호출하고 바로 build를 호출했는데 didChangeDependencies에서 watch가 안끝나서 Provider가 없을 수 있음.
     if(this.homeViewProvider == null) return Material(
         child: Center(
             child: Text("고객센터로 연락해 주세요. Err P-001")
         )
     );
+
+    if(this.homeViewProvider!.isLoad == Status.Fail) {
+      return Text("ERROR");
+    }
+    if(this.homeViewProvider!.isLoad == Status.Load){
+      return Material(
+        child: Center(
+          child: CircularProgressIndicator(),
+        )
+      );
+    }
+
+    if(homeViewProvider!.homeDataModel == null) return Material();
 
     final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
@@ -120,7 +135,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Color.fromRGBO(9, 67, 214, 1),
         elevation: 1.0,
         centerTitle: true,
-        title: Text("Airbridge"),
+        title: Text("우당탕탕"),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
@@ -134,7 +149,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           HomeView(
             controller : this._homeViewController,
-            titleTxt: 'Airbridge SDK TEST',
+            titleTxt: 'SDK Test',
             bnData: _mainPageAdapter.BannerModel_2_BnDataModel(
                 bannerModel: this.homeViewProvider!.homeDataModel!.listBn
             ),

@@ -144,6 +144,7 @@ class HomeViewProvider with ChangeNotifier{
       this.isLoad = Status.OK;
       this.notifyListeners();
     }catch(e){
+      print(e);
       this.isLoad = Status.Fail;
       this.notifyListeners();
     }
