@@ -68,14 +68,13 @@ class _MainPageState extends State<MainPage> {
     // 뒤로 갈 수 있는지 여부
     print(Navigator.of(context).canPop());
 
-    // didChangeDependencies 호출하고 바로 build를 호출했는데 didChangeDependencies에서 watch가 안끝나서 Provider가 없을 수 있음.
     if(this.homeViewProvider == null) return Material(
         child: Center(
             child: Text("고객센터로 연락해 주세요. Err P-001")
         )
     );
 
-    if(this.homeViewProvider!.isLoad == Status.Fail) {
+    if(this.homeViewProvider!.isLoad == Status.Fail){
       return Text("ERROR");
     }
     if(this.homeViewProvider!.isLoad == Status.Load){
@@ -85,8 +84,6 @@ class _MainPageState extends State<MainPage> {
         )
       );
     }
-
-    if(homeViewProvider!.homeDataModel == null) return Material();
 
     final bool _canPop = Navigator.of(context).canPop();
     return Scaffold(
@@ -135,7 +132,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Color.fromRGBO(9, 67, 214, 1),
         elevation: 1.0,
         centerTitle: true,
-        title: Text("우당탕탕"),
+        title: Text("Airbridge"),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
@@ -148,48 +145,48 @@ class _MainPageState extends State<MainPage> {
         physics: NeverScrollableScrollPhysics(),
         children: [
           HomeView(
-            controller : this._homeViewController,
-            titleTxt: 'SDK Test',
-            bnData: _mainPageAdapter.BannerModel_2_BnDataModel(
-                bannerModel: this.homeViewProvider!.homeDataModel!.listBn
-            ),
-            homeViewItemListData: HomeViewItemListData(
-                title: 'AB180',
-                count: 10,
-                builder: (BuildContext context, int index){
-                  return GestureDetector(
-                    onTap: () async {
-                      await Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => DetailPage())
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10.0),
-                      width: 240.0,
-                      child: TitleListItem(
-                        img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
-                        title: 'AB180',
-                        subTitle: 'test $index',
+              controller : this._homeViewController,
+              titleTxt: 'Airbridge SDK TEST',
+              bnData: _mainPageAdapter.BannerModel_2_BnDataModel(
+                  bannerModel: this.homeViewProvider!.homeDataModel!.listBn
+              ),
+              homeViewItemListData: HomeViewItemListData(
+                  title: 'AB180',
+                  count: 10,
+                  builder: (BuildContext context, int index){
+                    return GestureDetector(
+                      onTap: () async {
+                        await Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => DetailPage())
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10.0),
+                        width: 240.0,
+                        child: TitleListItem(
+                          img: 'https://cdn.pixabay.com/photo/2023/03/27/14/18/british-shorthair-7880879_1280.jpg',
+                          title: 'AB180',
+                          subTitle: 'test $index',
+                        ),
                       ),
-                    ),
-                  );
-                }
-            ),
-            homeViewGridItemListData: _mainPageAdapter.grid(
+                    );
+                  }
+              ),
+              homeViewGridItemListData: _mainPageAdapter.grid(
                 data: this.homeViewProvider!.homeDataModel!.gridProductModel,
                 builder: (HomeGridItemModel model) => Expanded(
-                      child: GestureDetector(
-                        onTap: (){},
-                        child: Container(
+                    child: GestureDetector(
+                      onTap: (){},
+                      child: Container(
                           height: 300.0,
                           alignment: Alignment.center,
                           child: Text(model.title)
-                        ),
-                      )
-                  ),
-                )
+                      ),
+                    )
+                ),
+              )
 
-            ),
+          ),
           SearchView(searchViewData: SearchViewData(
               hintText: "검색어를 입력해 주세요!",
               keyword: ["추천검색1", "검색1","추천검색2", "검색2","추천검색3", "검색3", "추천검색4", "추천검색5", "추천검색6"],

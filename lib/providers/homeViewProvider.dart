@@ -19,33 +19,33 @@ class HomeDataModel{
   );
 
   factory HomeDataModel.parse(PD_Service.ProductModel productModel){
-      return HomeDataModel(
-          listBn: (productModel.listBn as List<PD_Service.BannerModel>).map<BannerModel>(
-              (PD_Service.BannerModel e) => BannerModel(
-                  title: e.title,
+    return HomeDataModel(
+        listBn: (productModel.listBn as List<PD_Service.BannerModel>).map<BannerModel>(
+                (PD_Service.BannerModel e) => BannerModel(
+              title: e.title,
+              img: e.img,
+              des: e.des,
+            )
+        ).toList(),
+        listProductModel: HomeListProductModel(
+            title: productModel.listProductModel.title,
+            items: productModel.listProductModel.items.map<HomeListItem>(
+                    (PD_Service.HomeListItem e) => HomeListItem(
                   img: e.img,
                   des: e.des,
-              )
-          ).toList(),
-          listProductModel: HomeListProductModel(
-              title: productModel.listProductModel.title,
-              items: productModel.listProductModel.items.map<HomeListItem>(
-                  (PD_Service.HomeListItem e) => HomeListItem(
-                    img: e.img,
-                    des: e.des,
-                    title: e.title,
-                  )
-              ).toList()
-          ),
-          gridProductModel: HomeGridProductModel(
+                  title: e.title,
+                )
+            ).toList()
+        ),
+        gridProductModel: HomeGridProductModel(
             title:productModel.gridProductModel.title,
             items: productModel.gridProductModel.items.map<HomeGridItemModel>(
                     (PD_Service.HomeGridItemModel e) => HomeGridItemModel(
-                        title: e.title,
-                        img: e.img
-                    )).toList()
-          )
-      );
+                    title: e.title,
+                    img: e.img
+                )).toList()
+        )
+    );
   }
 }
 
